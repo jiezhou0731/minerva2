@@ -1,0 +1,251 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'install', '-g', 'yo' ]
+2 info using npm@1.3.10
+3 info using node@v0.10.25
+4 verbose cache add [ 'yo', null ]
+5 verbose cache add name=undefined spec="yo" args=["yo",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'yo',
+6 verbose parsed url   path: 'yo',
+6 verbose parsed url   href: 'yo' }
+7 silly lockFile c41975d1-yo yo
+8 verbose lock yo /home/andrew/.npm/c41975d1-yo.lock
+9 silly lockFile c41975d1-yo yo
+10 silly lockFile c41975d1-yo yo
+11 verbose addNamed [ 'yo', '' ]
+12 verbose addNamed [ null, '*' ]
+13 silly lockFile d937c28e-yo yo@
+14 verbose lock yo@ /home/andrew/.npm/d937c28e-yo.lock
+15 silly addNameRange { name: 'yo', range: '*', hasData: false }
+16 verbose url raw yo
+17 verbose url resolving [ 'https://registry.npmjs.org/', './yo' ]
+18 verbose url resolved https://registry.npmjs.org/yo
+19 info trying registry request attempt 1 at 17:46:36
+20 http GET https://registry.npmjs.org/yo
+21 http 200 https://registry.npmjs.org/yo
+22 silly registry.get cb [ 200,
+22 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+22 silly registry.get     etag: '"9Q26KKMNJA31XDB9T64FPWQ9L"',
+22 silly registry.get     'content-type': 'application/json',
+22 silly registry.get     'cache-control': 'max-age=60',
+22 silly registry.get     'content-length': '34022',
+22 silly registry.get     'accept-ranges': 'bytes',
+22 silly registry.get     date: 'Wed, 19 Aug 2015 21:46:36 GMT',
+22 silly registry.get     via: '1.1 varnish',
+22 silly registry.get     age: '0',
+22 silly registry.get     connection: 'keep-alive',
+22 silly registry.get     'x-served-by': 'cache-iad2140-IAD',
+22 silly registry.get     'x-cache': 'HIT',
+22 silly registry.get     'x-cache-hits': '1',
+22 silly registry.get     'x-timer': 'S1440020796.144087,VS0,VE86',
+22 silly registry.get     vary: 'Accept' } ]
+23 silly addNameRange number 2 { name: 'yo', range: '*', hasData: true }
+24 silly addNameRange versions [ 'yo', [ '1.1.0', '1.1.1', '1.1.2', '1.4.6', '1.4.7' ] ]
+25 verbose addNamed [ 'yo', '1.4.7' ]
+26 verbose addNamed [ '1.4.7', '1.4.7' ]
+27 silly lockFile 22bae6b4-yo-1-4-7 yo@1.4.7
+28 verbose lock yo@1.4.7 /home/andrew/.npm/22bae6b4-yo-1-4-7.lock
+29 silly lockFile ef4e4e38-gistry-npmjs-org-yo-yo-1-4-7-tgz https://registry.npmjs.org/yo/-/yo-1.4.7.tgz
+30 verbose lock https://registry.npmjs.org/yo/-/yo-1.4.7.tgz /home/andrew/.npm/ef4e4e38-gistry-npmjs-org-yo-yo-1-4-7-tgz.lock
+31 verbose addRemoteTarball [ 'https://registry.npmjs.org/yo/-/yo-1.4.7.tgz',
+31 verbose addRemoteTarball   '7eecb354f6f4df2dafbc2da53d30f7f7fafcb450' ]
+32 info retry fetch attempt 1 at 17:46:36
+33 verbose fetch to= /home/andrew/tmp/npm-8623-2whmnQDj/1440020796477-0.1565381062682718/tmp.tgz
+34 http GET https://registry.npmjs.org/yo/-/yo-1.4.7.tgz
+35 http 200 https://registry.npmjs.org/yo/-/yo-1.4.7.tgz
+36 verbose tar unpack /home/andrew/tmp/npm-8623-2whmnQDj/1440020796477-0.1565381062682718/tmp.tgz
+37 silly lockFile 8c1542e6-96477-0-1565381062682718-package tar:///home/andrew/tmp/npm-8623-2whmnQDj/1440020796477-0.1565381062682718/package
+38 verbose lock tar:///home/andrew/tmp/npm-8623-2whmnQDj/1440020796477-0.1565381062682718/package /home/andrew/.npm/8c1542e6-96477-0-1565381062682718-package.lock
+39 silly lockFile 88df15be-96477-0-1565381062682718-tmp-tgz tar:///home/andrew/tmp/npm-8623-2whmnQDj/1440020796477-0.1565381062682718/tmp.tgz
+40 verbose lock tar:///home/andrew/tmp/npm-8623-2whmnQDj/1440020796477-0.1565381062682718/tmp.tgz /home/andrew/.npm/88df15be-96477-0-1565381062682718-tmp-tgz.lock
+41 silly gunzTarPerm modes [ '755', '644' ]
+42 silly gunzTarPerm extractEntry package.json
+43 silly gunzTarPerm extractEntry lib/cli.js
+44 silly gunzTarPerm extractEntry lib/router.js
+45 silly gunzTarPerm extractEntry lib/routes/clear-config.js
+46 silly gunzTarPerm extractEntry lib/routes/exit.js
+47 silly gunzTarPerm extractEntry lib/routes/help.js
+48 silly gunzTarPerm extractEntry lib/routes/home.js
+49 silly gunzTarPerm extractEntry lib/routes/install.js
+50 silly gunzTarPerm extractEntry lib/routes/run.js
+51 silly gunzTarPerm extractEntry lib/routes/update.js
+52 silly gunzTarPerm extractEntry lib/usage.txt
+53 silly gunzTarPerm extractEntry lib/utils/global-config.js
+54 silly gunzTarPerm extractEntry lib/utils/index.js
+55 silly gunzTarPerm extractEntry readme.md
+56 silly lockFile 8c1542e6-96477-0-1565381062682718-package tar:///home/andrew/tmp/npm-8623-2whmnQDj/1440020796477-0.1565381062682718/package
+57 silly lockFile 8c1542e6-96477-0-1565381062682718-package tar:///home/andrew/tmp/npm-8623-2whmnQDj/1440020796477-0.1565381062682718/package
+58 silly lockFile 88df15be-96477-0-1565381062682718-tmp-tgz tar:///home/andrew/tmp/npm-8623-2whmnQDj/1440020796477-0.1565381062682718/tmp.tgz
+59 silly lockFile 88df15be-96477-0-1565381062682718-tmp-tgz tar:///home/andrew/tmp/npm-8623-2whmnQDj/1440020796477-0.1565381062682718/tmp.tgz
+60 verbose tar pack [ '/home/andrew/.npm/yo/1.4.7/package.tgz',
+60 verbose tar pack   '/home/andrew/tmp/npm-8623-2whmnQDj/1440020796477-0.1565381062682718/package' ]
+61 verbose tarball /home/andrew/.npm/yo/1.4.7/package.tgz
+62 verbose folder /home/andrew/tmp/npm-8623-2whmnQDj/1440020796477-0.1565381062682718/package
+63 silly lockFile 8c1542e6-96477-0-1565381062682718-package tar:///home/andrew/tmp/npm-8623-2whmnQDj/1440020796477-0.1565381062682718/package
+64 verbose lock tar:///home/andrew/tmp/npm-8623-2whmnQDj/1440020796477-0.1565381062682718/package /home/andrew/.npm/8c1542e6-96477-0-1565381062682718-package.lock
+65 silly lockFile d5e2e915--andrew-npm-yo-1-4-7-package-tgz tar:///home/andrew/.npm/yo/1.4.7/package.tgz
+66 verbose lock tar:///home/andrew/.npm/yo/1.4.7/package.tgz /home/andrew/.npm/d5e2e915--andrew-npm-yo-1-4-7-package-tgz.lock
+67 silly lockFile 8c1542e6-96477-0-1565381062682718-package tar:///home/andrew/tmp/npm-8623-2whmnQDj/1440020796477-0.1565381062682718/package
+68 silly lockFile 8c1542e6-96477-0-1565381062682718-package tar:///home/andrew/tmp/npm-8623-2whmnQDj/1440020796477-0.1565381062682718/package
+69 silly lockFile d5e2e915--andrew-npm-yo-1-4-7-package-tgz tar:///home/andrew/.npm/yo/1.4.7/package.tgz
+70 silly lockFile d5e2e915--andrew-npm-yo-1-4-7-package-tgz tar:///home/andrew/.npm/yo/1.4.7/package.tgz
+71 silly lockFile dce502b6-home-andrew-npm-yo-1-4-7-package /home/andrew/.npm/yo/1.4.7/package
+72 verbose lock /home/andrew/.npm/yo/1.4.7/package /home/andrew/.npm/dce502b6-home-andrew-npm-yo-1-4-7-package.lock
+73 silly lockFile dce502b6-home-andrew-npm-yo-1-4-7-package /home/andrew/.npm/yo/1.4.7/package
+74 silly lockFile dce502b6-home-andrew-npm-yo-1-4-7-package /home/andrew/.npm/yo/1.4.7/package
+75 verbose tar unpack /home/andrew/.npm/yo/1.4.7/package.tgz
+76 silly lockFile 885d5c96-home-andrew-npm-yo-1-4-7-package tar:///home/andrew/.npm/yo/1.4.7/package
+77 verbose lock tar:///home/andrew/.npm/yo/1.4.7/package /home/andrew/.npm/885d5c96-home-andrew-npm-yo-1-4-7-package.lock
+78 silly lockFile d5e2e915--andrew-npm-yo-1-4-7-package-tgz tar:///home/andrew/.npm/yo/1.4.7/package.tgz
+79 verbose lock tar:///home/andrew/.npm/yo/1.4.7/package.tgz /home/andrew/.npm/d5e2e915--andrew-npm-yo-1-4-7-package-tgz.lock
+80 silly gunzTarPerm modes [ '755', '644' ]
+81 silly gunzTarPerm extractEntry package.json
+82 silly gunzTarPerm extractEntry lib/cli.js
+83 silly gunzTarPerm extractEntry lib/router.js
+84 silly gunzTarPerm extractEntry lib/routes/clear-config.js
+85 silly gunzTarPerm extractEntry lib/routes/exit.js
+86 silly gunzTarPerm extractEntry lib/routes/help.js
+87 silly gunzTarPerm extractEntry lib/routes/home.js
+88 silly gunzTarPerm extractEntry lib/routes/install.js
+89 silly gunzTarPerm extractEntry lib/routes/run.js
+90 silly gunzTarPerm extractEntry lib/routes/update.js
+91 silly gunzTarPerm extractEntry lib/usage.txt
+92 silly gunzTarPerm extractEntry lib/utils/global-config.js
+93 silly gunzTarPerm extractEntry lib/utils/index.js
+94 silly gunzTarPerm extractEntry readme.md
+95 silly lockFile 885d5c96-home-andrew-npm-yo-1-4-7-package tar:///home/andrew/.npm/yo/1.4.7/package
+96 silly lockFile 885d5c96-home-andrew-npm-yo-1-4-7-package tar:///home/andrew/.npm/yo/1.4.7/package
+97 silly lockFile d5e2e915--andrew-npm-yo-1-4-7-package-tgz tar:///home/andrew/.npm/yo/1.4.7/package.tgz
+98 silly lockFile d5e2e915--andrew-npm-yo-1-4-7-package-tgz tar:///home/andrew/.npm/yo/1.4.7/package.tgz
+99 verbose chmod /home/andrew/.npm/yo/1.4.7/package.tgz 644
+100 verbose chown /home/andrew/.npm/yo/1.4.7/package.tgz [ 1000, 1000 ]
+101 silly lockFile ef4e4e38-gistry-npmjs-org-yo-yo-1-4-7-tgz https://registry.npmjs.org/yo/-/yo-1.4.7.tgz
+102 silly lockFile ef4e4e38-gistry-npmjs-org-yo-yo-1-4-7-tgz https://registry.npmjs.org/yo/-/yo-1.4.7.tgz
+103 silly lockFile 22bae6b4-yo-1-4-7 yo@1.4.7
+104 silly lockFile 22bae6b4-yo-1-4-7 yo@1.4.7
+105 silly lockFile d937c28e-yo yo@
+106 silly lockFile d937c28e-yo yo@
+107 silly resolved [ { name: 'yo',
+107 silly resolved     version: '1.4.7',
+107 silly resolved     description: 'CLI tool for running Yeoman generators',
+107 silly resolved     license: 'BSD-2-Clause',
+107 silly resolved     bin: { yo: 'lib/cli.js' },
+107 silly resolved     author: { name: 'Yeoman' },
+107 silly resolved     repository: { type: 'git', url: 'git://github.com/yeoman/yo' },
+107 silly resolved     engines: { node: '>=0.10.0', npm: '>=2.8.0' },
+107 silly resolved     scripts:
+107 silly resolved      { test: 'jshint . && mocha test/**/*.js',
+107 silly resolved        postinstall: 'yodoctor',
+107 silly resolved        postupdate: 'yodoctor',
+107 silly resolved        prepublish: 'nsp audit-package' },
+107 silly resolved     files: [ 'lib' ],
+107 silly resolved     keywords:
+107 silly resolved      [ 'cli-app',
+107 silly resolved        'cli',
+107 silly resolved        'bin',
+107 silly resolved        'front-end',
+107 silly resolved        'development',
+107 silly resolved        'dev',
+107 silly resolved        'build',
+107 silly resolved        'web',
+107 silly resolved        'tool',
+107 silly resolved        'scaffold',
+107 silly resolved        'stack',
+107 silly resolved        'yeoman',
+107 silly resolved        'generator',
+107 silly resolved        'generate',
+107 silly resolved        'app',
+107 silly resolved        'boilerplate' ],
+107 silly resolved     dependencies:
+107 silly resolved      { 'array-uniq': '^1.0.2',
+107 silly resolved        async: '^1.0.0',
+107 silly resolved        chalk: '^1.0.0',
+107 silly resolved        configstore: '^1.0.0',
+107 silly resolved        'cross-spawn': '^0.4.0',
+107 silly resolved        figures: '^1.3.5',
+107 silly resolved        findup: '^0.1.5',
+107 silly resolved        fullname: '^1.0.0',
+107 silly resolved        got: '^3.2.0',
+107 silly resolved        'humanize-string': '^1.0.0',
+107 silly resolved        inquirer: '^0.8.0',
+107 silly resolved        insight: '^0.6.0',
+107 silly resolved        lodash: '^3.2.0',
+107 silly resolved        meow: '^3.0.0',
+107 silly resolved        'npm-keyword': '^1.1.1',
+107 silly resolved        opn: '^1.0.0',
+107 silly resolved        'package-json': '^1.1.0',
+107 silly resolved        repeating: '^1.1.2',
+107 silly resolved        'root-check': '^1.0.0',
+107 silly resolved        'sort-on': '^1.0.0',
+107 silly resolved        'string-length': '^1.0.0',
+107 silly resolved        titleize: '^1.0.0',
+107 silly resolved        'update-notifier': '^0.5.0',
+107 silly resolved        'user-home': '^1.1.0',
+107 silly resolved        'yeoman-character': '^1.0.0',
+107 silly resolved        'yeoman-doctor': '^1.0.0',
+107 silly resolved        'yeoman-environment': '^1.0.1',
+107 silly resolved        yosay: '^1.0.0' },
+107 silly resolved     devDependencies:
+107 silly resolved      { jshint: '^2.5.11',
+107 silly resolved        mocha: '^2.1.0',
+107 silly resolved        mockery: '^1.4.0',
+107 silly resolved        nock: '^2.0.1',
+107 silly resolved        nsp: '*',
+107 silly resolved        proxyquire: '^1.0.1',
+107 silly resolved        'registry-url': '^3.0.0',
+107 silly resolved        sinon: '^1.12.1' },
+107 silly resolved     preferGlobal: true,
+107 silly resolved     readme: '▂▂╱▔▔▔▔▔▔▔▔▔▔╲  \n╲▂┈╭╮╱╱╭┳━━━╮▕  \n┈┈▏┃╰╮╭╯┃╭━╮┃▕  \n┈┈▏╰╮╰╯╭┫┃╱┃┃▕  \n┈┈▏╱╰╮╭╯┃┃╱┃┃▕  \n┈┈▏╱╱┃┃╱┃╰━╯┃▕  \n┈┈▏╱╱╰╯╱╰━━━╯▕  \n┈┈╲▂▂▂▂▂▂▂▂▂▂╱\n\n\n[![Build Status](https://travis-ci.org/yeoman/yo.svg?branch=master)](https://travis-ci.org/yeoman/yo) [![](http://img.shields.io/badge/unicorn-approved-ff69b4.svg)](https://www.youtube.com/watch?v=9auOCbH5Ns4)\n\n> CLI tool for running Yeoman [generators](http://yeoman.io/generators/)\n\n<img src="screenshot.png" width="569">\n\n\n## [Documentation](https://github.com/yeoman/yeoman/wiki)\n\n\n## Options\n\n- `--no-color` Disable colors.\n- `--version` Print the current `yo` version.\n- `--help` Print `yo` help menu with the list of found generators.\n- `--[no-]insight` to toggle anonymous [Insight](https://github.com/yeoman/insight) tracking which helps us improve Yeoman. Using either of these flags on the first run will prevent you from being prompted about it interactively. The flags can also be used to change it later on.\n- `--generators` Print available generators.\n\n\n## Troubleshooting\n\nRunning `yo doctor` command can help you troubleshoot common issues.\n\nIf `doctor` doesn\'t help, then check opened issues for a similar problem. Open a new issue if your problem haven\'t been reported yet. Make sure to always include the version of `yo` (`yo --version`) and Node.js (`node --version`) you use.\n\nIf your issue only occurs using a generator, please report the issues on the generator\'s repository.\n\n\n## Contribute\n\nSee the [contributing docs](https://github.com/yeoman/yeoman/blob/master/contributing.md).\n\n\n## Changelog\n\nSee the [release page](https://github.com/yeoman/yo/releases).\n\n\n## License\n\nBSD-2-Clause © Google\n',
+107 silly resolved     readmeFilename: 'readme.md',
+107 silly resolved     bugs: { url: 'https://github.com/yeoman/yo/issues' },
+107 silly resolved     _id: 'yo@1.4.7',
+107 silly resolved     dist: { shasum: 'dff5b6217fd41c0594a68703452d206d2360236a' },
+107 silly resolved     _from: 'yo@',
+107 silly resolved     _resolved: 'https://registry.npmjs.org/yo/-/yo-1.4.7.tgz' } ]
+108 info install yo@1.4.7 into /usr/local/lib
+109 info installOne yo@1.4.7
+110 warn engine yo@1.4.7: wanted: {"node":">=0.10.0","npm":">=2.8.0"} (current: {"node":"v0.10.25","npm":"1.3.10"})
+111 info /usr/local/lib/node_modules/yo unbuild
+112 verbose tar unpack /home/andrew/.npm/yo/1.4.7/package.tgz
+113 silly lockFile 7d7c7bef-ar-usr-local-lib-node-modules-yo tar:///usr/local/lib/node_modules/yo
+114 verbose lock tar:///usr/local/lib/node_modules/yo /home/andrew/.npm/7d7c7bef-ar-usr-local-lib-node-modules-yo.lock
+115 silly lockFile d5e2e915--andrew-npm-yo-1-4-7-package-tgz tar:///home/andrew/.npm/yo/1.4.7/package.tgz
+116 verbose lock tar:///home/andrew/.npm/yo/1.4.7/package.tgz /home/andrew/.npm/d5e2e915--andrew-npm-yo-1-4-7-package-tgz.lock
+117 silly gunzTarPerm modes [ '755', '644' ]
+118 error Error: EACCES, mkdir '/usr/local/lib/node_modules'
+118 error  { [Error: EACCES, mkdir '/usr/local/lib/node_modules']
+118 error   errno: 3,
+118 error   code: 'EACCES',
+118 error   path: '/usr/local/lib/node_modules',
+118 error   fstream_type: 'Directory',
+118 error   fstream_path: '/usr/local/lib/node_modules/yo',
+118 error   fstream_class: 'DirWriter',
+118 error   fstream_stack:
+118 error    [ '/usr/lib/nodejs/fstream/lib/writer.js:171:23',
+118 error      '/usr/lib/nodejs/mkdirp/index.js:37:53',
+118 error      'Object.oncomplete (fs.js:107:15)' ] }
+119 error Please try running this command again as root/Administrator.
+120 error System Linux 3.16.0-31-generic
+121 error command "/usr/bin/nodejs" "/usr/bin/npm" "install" "-g" "yo"
+122 error cwd /home/andrew/Documents/data/trytry/appleevents
+123 error node -v v0.10.25
+124 error npm -v 1.3.10
+125 error path /usr/local/lib/node_modules
+126 error fstream_path /usr/local/lib/node_modules/yo
+127 error fstream_type Directory
+128 error fstream_class DirWriter
+129 error code EACCES
+130 error errno 3
+131 error stack Error: EACCES, mkdir '/usr/local/lib/node_modules'
+132 error fstream_stack /usr/lib/nodejs/fstream/lib/writer.js:171:23
+132 error fstream_stack /usr/lib/nodejs/mkdirp/index.js:37:53
+132 error fstream_stack Object.oncomplete (fs.js:107:15)
+133 verbose exit [ 3, true ]

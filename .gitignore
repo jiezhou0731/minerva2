@@ -1,0 +1,4 @@
+.DS_Store
+client/app/data/electronic/dump/*
+client/app/data/electronic/images/*
+client/app/data/electronic/toSolr/*
