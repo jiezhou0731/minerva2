@@ -65,34 +65,35 @@ body{
     margin-top:0.7vh;
 }
 
-.header .statistics{
+.header .top-right-tools{
     float:right;
     margin-right: 20px;
 }
 
-.header .statistics .open-button{
+.header .top-right-tools .open-button{
     color: white;
     margin-top: 0.8vh;
     width:3vh;
+    margin-left:10px;
 }
 
-.statistics-table{
+.top-right-tools-table{
     clear: both;
     width:100%;
     padding-bottom: 10px;
 }
 
-.statistics-table .statistics-row{
+.top-right-tools-table .top-right-tools-row{
     clear: both;
     padding:10px 0px;
 }
 
-.statistics-table .statistics-row .statistics-cell{
+.top-right-tools-table .top-right-tools-row .top-right-tools-cell{
     float:left;
     width:50%;
 }
 
-.statistics-close{
+.top-right-tools-close{
     position: absolute;
     top:10px;
     right:10px;
@@ -657,20 +658,19 @@ body{
 	padding:0px;
 }
 
-.user-state{ 
-	width:100vw;
+.user-top-right-toolsidth:100vw;
 	height:10vh;
 	bottom: 0vh;
 	position:fixed;
     z-index: 1;
 }
 
-.user-state md-content{
+.user-top-right-toolsontent{
     overflow:hidden;
 }
 
 
-.user-state md-card md-card-content{
+.user-top-right-toolsard md-card-content{
 	width:100vw;
 	min-height: 7vh;
     height:7vh;
@@ -678,7 +678,7 @@ body{
     padding-left:3px;
 }
 
-.user-state .one-query {
+.user-top-right-tools-query {
     float: left;
     padding: 5px 20px;
     margin: 5px 0px;
@@ -689,18 +689,18 @@ body{
     line-height: 1.42857143;
     min-height: 0px;
 }
-.user-state .md-button.md-raised:not([disabled]):hover{
+.user-top-right-toolsbutton.md-raised:not([disabled]):hover{
     background-color: #03C9A9;
 }
 
-.user-state .search-transition-pre {
+.user-top-right-toolsrch-transition-pre {
     float: left;
     margin: 5px 0px;
     color: #45B6B0;
     height:32px;
 }
 
-.user-state .search-transition .md-raised{
+.user-top-right-toolsrch-transition .md-raised{
     float: left;
     padding: 5px 20px;
     margin: 5px 0px;
@@ -712,30 +712,50 @@ body{
     background-color: white;
 }
 
-.user-state .search-transition .md-button.md-raised:not([disabled]):hover, .user-state .search-transition:hover {
+.user-top-right-toolsrch-transition .md-button.md-raised:not([disabled]):hover, .user-top-right-toolsrch-transition:hover {
     color: #45B6B0;
     background-color: white;
     cursor: default;
 }
 
 
-.user-state .search-transition-pre {
+.user-top-right-toolsrch-transition-pre {
     float: left;
     margin: 5px 0px;
     color: #45B6B0;
     height:32px;
 }
 
-.user-state  md-card .parent{
+.user-top-right-toolscard .parent{
     height:  7vh;
     width: 100%;
     overflow: hidden;
 }
 
-.user-state  md-card .child{
+.user-top-right-toolscard .child{
     width: 100%;
     height: 7vh;
     overflow-y: auto;
     overflow-x:hidden;
     padding-right: 15px; 
+}
+
+
+.login-alert{
+    position: absolute;
+}
+
+.login-alert .ng-hide-remove {
+  transition: all linear 0.2s;
+}
+
+.login-alert .ng-hide {
+  line-height: 0;
+  opacity: 0;
+  top:0px;
+}
+
+
+.login {
+    margin-top:7vh;
 }

@@ -30,41 +30,72 @@
   Minerva II
 </div>
 
-<div class="statistics" ng-controller="statisticsCtrl">
-  <i class="glyphicon glyphicon-scale open-button"  ng-click="showCustomToast()"></i>
-  <script type="text/ng-template" id="toast-template.html">
+<div class="top-right-tools" >
+  <i class="glyphicon glyphicon-scale open-button"  ng-controller="statisticsCtrl" ng-click="showCustomToast()"></i>
+  <script type="text/ng-template" id="topRightToolsStatistics.html">
   <md-toast>
-    <div class="statistics-table">
-      <div class="statistics-row">
-          <div class="statistics-cell">
+    <div class="top-right-tools-table">
+      <div class="top-right-tools-row">
+          <div class="top-right-tools-cell">
             # of docucments:
           </div>
-          <div class="statistics-cell">
+          <div class="top-right-tools-cell">
             1,042,549
           </div>
       </div>
 
-      <div class="statistics-row">
-          <div class="statistics-cell">
+      <div class="top-right-tools-row">
+          <div class="top-right-tools-cell">
             Corpus size:
           </div>
-          <div class="statistics-cell">
+          <div class="top-right-tools-cell">
             40.1 GB
           </div>
       </div>
 
-      <div class="statistics-row">
-          <div class="statistics-cell">
+      <div class="top-right-tools-row">
+          <div class="top-right-tools-cell">
             Unique terms:
           </div>
-          <div class="statistics-cell">
+          <div class="top-right-tools-cell">
             869,195
           </div>
       </div>
 
     </div>
    
-    <i class="glyphicon glyphicon-remove statistics-close"  ng-click="closeToast()""></i>
+    <i class="glyphicon glyphicon-remove top-right-tools-close"  ng-click="closeToast()"></i>
+  </md-toast>
+  </script>
+
+  <i class="glyphicon glyphicon-user open-button"   ng-controller="accountCtrl" ng-click="showCustomToast()"></i>
+  <script type="text/ng-template" id="topRightToolsAccount.html">
+  <md-toast>
+    <div class="top-right-tools-table">
+
+      <div class="top-right-tools-row">
+          <div class="top-right-tools-cell">
+              {{user.firstName}} &nbsp;&nbsp;
+              {{user.lastName}}
+          </div>
+      </div>
+
+      <div class="top-right-tools-row">
+          <div class="top-right-tools-cell">
+           Sign in as &nbsp;&nbsp;
+           {{user.username}}
+          </div>
+      </div>
+
+      <div class="top-right-tools-row">
+          <div class="top-right-tools-cell">
+           <a href="#/login">Logout</a>
+          </div>
+      </div>
+
+    </div>
+   
+    <i class="glyphicon glyphicon-remove top-right-tools-close"  ng-click="closeToast()"></i>
   </md-toast>
   </script>
 </div>

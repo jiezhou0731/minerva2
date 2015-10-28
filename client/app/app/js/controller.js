@@ -1,12 +1,6 @@
 //var solrQueryUrl = 'http://141.161.20.98:8080/solr/counterfeit/winwin';
 var solrQueryUrl = 'http://141.161.20.98:8080/solr/electronic/select';
 
-
-// Login
-app.controller('loginController', function($scope, $rootScope) {
-
-});
-
 app.controller('popupWindowController', function(pythonService, $window, $scope, $rootScope) {
 	/*
     console.log($window.mySharedData);
@@ -809,7 +803,7 @@ app.controller('statisticsCtrl', function($mdToast,$document, solrService,rootCo
 	$scope.showCustomToast = function() {
     $mdToast.show({
     	  controller: 'statisticsCtrl',
-		  templateUrl: 'toast-template.html',
+		  templateUrl: 'topRightToolsStatistics.html',
 		  parent : $document[0].querySelector('#toastBounds'),
 		  hideDelay: 60000,
 		  position: $scope.getToastPosition()
@@ -840,6 +834,72 @@ app.controller('statisticsCtrl', function($mdToast,$document, solrService,rootCo
 	      .join(' ');
 	};
 });
+
+
+app.controller('accountCtrl', function(UserService, $mdToast,$document, solrService,rootCookie,$scope, $rootScope) {
+	 var last = {
+	  bottom: false,
+	  top: true,
+	  left: false,
+	  right: true
+	};
+	$scope.toastPosition = angular.extend({},last);
+
+	$scope.user = {};
+	UserService
+		.GetByUsername($rootScope.globals.currentUser.username)
+        .then(function (user) {
+            $scope.user = user;
+        });
+
+	$scope.showCustomToast = function() {
+    $mdToast.show({
+    	  controller: 'accountCtrl',
+		  templateUrl: 'topRightToolsAccount.html',
+		  parent : $document[0].querySelector('#toastBounds'),
+		  hideDelay: 60000,
+		  position: $scope.getToastPosition()
+		});
+	};
+
+    $scope.closeToast = function() {
+	    $mdToast.hide();
+	};
+
+
+	function sanitizePosition() {
+		var current = $scope.toastPosition;
+
+		if ( current.bottom && last.top ) current.top = false;
+		if ( current.top && last.bottom ) current.bottom = false;
+		if ( current.right && last.left ) current.left = false;
+		if ( current.left && last.right ) current.right = false;
+
+		last = angular.extend({},current);
+	}
+
+	$scope.getToastPosition = function() {
+	    sanitizePosition();
+
+	    return Object.keys($scope.toastPosition)
+	      .filter(function(pos) { return $scope.toastPosition[pos]; })
+	      .join(' ');
+	};
+});
+
+function entitiesStructureCtrl($scope, $mdDialog, $window) {
+	/*
+	$window.addEventListener('message', function() {
+        $scope.loadingThreeGraph=false;
+    });
+	*/
+    $scope.loadingThreeGraph=true;
+
+	$scope.hide = function() {
+		$mdDialog.hide();
+	};
+};
+
 
 function entitiesStructureCtrl($scope, $mdDialog, $window) {
 	/*
@@ -942,3 +1002,85 @@ app.directive('ngRightClick', function($parse) {
         });
     };
 });
+
+
+// Login
+(function () {
+    'use strict';
+
+    angular
+        .module('app')
+        .controller('HomeController', HomeController);
+
+    HomeController.$inject = ['UserService', '$rootScope'];
+    function HomeController(UserService, $rootScope) {
+        var vm = this;
+
+        vm.user = null;
+        vm.allUsers = [];
+        vm.deleteUser = deleteUser;
+
+        initController();
+
+        function initController() {
+            loadCurrentUser();
+            loadAllUsers();
+        }
+
+        function loadCurrentUser() {
+            UserService.GetByUsername($rootScope.globals.currentUser.username)
+                .then(function (user) {
+                    vm.user = user;
+                });
+        }
+
+        function loadAllUsers() {
+            UserService.GetAll()
+                .then(function (users) {
+                    vm.allUsers = users;
+                });
+        }
+
+        function deleteUser(id) {
+            UserService.Delete(id)
+            .then(function () {
+                loadAllUsers();
+            });
+        }
+    }
+
+})();
+
+(function () {
+    'use strict';
+
+    angular
+        .module('app')
+        .controller('LoginController', LoginController);
+
+    LoginController.$inject = ['$location', 'AuthenticationService', 'FlashService'];
+    function LoginController($location, AuthenticationService, FlashService) {
+        var vm = this;
+
+        vm.login = login;
+
+        (function initController() {
+            // reset login status
+            AuthenticationService.ClearCredentials();
+        })();
+
+        function login() {
+            vm.dataLoading = true;
+            AuthenticationService.Login(vm.username, vm.password, function (response) {
+                if (response.success) {
+                    AuthenticationService.SetCredentials(vm.username, vm.password);
+                    $location.path('/');
+                } else {
+                    FlashService.Error(response.message);
+                    vm.dataLoading = false;
+                }
+            });
+        };
+    }
+
+})();

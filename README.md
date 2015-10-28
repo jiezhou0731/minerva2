@@ -17,28 +17,7 @@ sudo apt-get install -y mongodb-org
 sudo service mongod start
 
 
-In server folder, run:
-
-npm install --save express
-
-npm install --save mongoose
-
-npm install --save node-restful
-
-npm install --save method-override
-
-npm install --save body-parser
-
-npm install --save lodash
-
-node index.js
-
-check nodejs processes:
-
-lsof -Pi | grep LISTEN
-
-
-In client folder, run:
+cd client/
 
 sudo npm install -g yo
 
@@ -63,6 +42,8 @@ sudo gem install compass
 npm install grunt-contrib-compass --save-dev
 
 sudo grunt serve
+
+Then you can access the home page at localhost:9000
 
 ##Trouble Shooting:
 Upgrade npm:

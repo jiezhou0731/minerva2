@@ -1,4 +1,11 @@
-﻿<div class="col-md-6 col-md-offset-3">
+﻿<div class="header"  ng-include="'app/view/authentication/header.html'">
+</div>
+
+<div class="col-sm-8 col-sm-offset-2 login-alert">
+    <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-show="flash" ng-bind="flash.message"></div>
+</div>
+
+<div class="col-md-6 col-md-offset-3 login">
     <h2>Register</h2>
     <div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
     <form name="form" ng-submit="vm.register()" role="form">
