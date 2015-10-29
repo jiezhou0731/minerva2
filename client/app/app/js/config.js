@@ -4,7 +4,7 @@ var app = angular.module('app',[ 'ngRoute','ngSanitize','ngCookies','ngMaterial'
   .iconSet("social", 'img/icons/sets/social-icons.svg', 24);
 });
 
-/*
+
 app.config(
   function($routeProvider,RestangularProvider) {
     RestangularProvider.setBaseUrl('http://141.161.20.98/tensecpush');
@@ -12,18 +12,34 @@ app.config(
       id: "_id"
     });
 
-    $routeProvider.
-      when('/home', {
-        templateUrl: 'app/view/home/index.html'
+    $routeProvider
+      .when('/', {
+          templateUrl: 'app/view/home/index.html'
+      })
+
+      .when('/login', {
+          controller: 'LoginController',
+          templateUrl: 'app/view/authentication/login.html',
+          controllerAs: 'vm'
+      })
+
+      .when('/register', {
+          controller: 'RegisterController',
+          templateUrl: 'app/view/authentication/register.html',
+          controllerAs: 'vm'
       }).
+      
       when('/entitiesStructure', {
         templateUrl: 'app/view/home/entitiesStructure.html'
       }).
+
       otherwise({
-        redirectTo: '/home'
+        redirectTo: '/login'
       });
+
   });
-*/
+
+/*
 app.config(
   function config($routeProvider, $locationProvider) {
       $routeProvider
@@ -45,7 +61,7 @@ app.config(
 
           .otherwise({ redirectTo: '/login' });
   });
-
+*/
 app.run(
     function run($rootScope, $location, $cookies, $http) {
         // keep user logged in after page refresh

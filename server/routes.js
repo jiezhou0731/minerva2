@@ -1,4 +1,4 @@
 module.exports = {
-  '/movie': require('./controllers/MovieController'),
+  '/user': require('./controllers/UserController'),
   '/appleEvent': require('./controllers/AppleEventController')
 };

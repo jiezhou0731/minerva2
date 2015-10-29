@@ -70,12 +70,6 @@ body{
     margin-right: 20px;
 }
 
-.header .top-right-tools .open-button{
-    color: white;
-    margin-top: 0.8vh;
-    width:3vh;
-    margin-left:10px;
-}
 
 .top-right-tools-table{
     clear: both;
@@ -98,6 +92,31 @@ body{
     top:10px;
     right:10px;
 }
+
+.top-right-tools-table .btn-primary {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.45);
+    border-color: rgba(0, 0, 0, 0.45);
+}
+
+.top-right-tools-table .btn-primary:hover {
+    color: #fff;
+    background-color: #6C7A89;
+    border-color: #6C7A89;
+    -webkit-transition: background-color 2500ms linear;
+    -moz-transition: background-color 200ms linear;
+    -o-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+}
+
+.header .top-right-tools .open-button{
+    color: white;
+    margin-top: 0.8vh;
+    width:3vh;
+    margin-left:10px;
+}
+
 
 .sphere-clicked-dropdown-menu{
 	position:fixed;
@@ -759,3 +778,4 @@ body{
 .login {
     margin-top:7vh;
 }
+
