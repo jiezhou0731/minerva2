@@ -37,7 +37,32 @@ while doc_total_number<101:
             nextUrl = urljoin(url,elem.parent.findAll('a')[0]['href'])
             print nextUrl
 
+        # Extract entities
+        table = soup.find('table', attrs={'class':'ms-classic1-main'})
+        table_body = table.find('tbody')
+        rows = table_body.find_all('tr')
+
+        source = {}
+        crawl_data = []
+        colName=["model","manufacturer","batch number","quantity","package","ignore","note","ignore","ignore","ignore"]
+        rowI = 0
+        for row in rows:
+            if rowI == 0 :
+                rowI = rowI + 1 
+                continue
+            entity = {}
+            cols = row.find_all('td')
+            colI = 0
+            for col in cols:
+                entity[colName[colI]] = col.text 
+                colI = colI + 1
+            del entity["ignore"]
+            crawl_data.append(entity)
+            rowI = rowI + 1
+        source['crawl_data'] = crawl_data
+
         d = {}
+        d['cdr_data'] = json.dumps(source)
         d['id'] = 'gucn'+str(doc_total_number)
         d['_type'] = 'electronics'
         d['url'] = currentUrl
@@ -45,6 +70,7 @@ while doc_total_number<101:
         d['title'] = soup.title.text
         [s.extract() for s in soup('script')]
         d['content'] = soup.getText()
+
 
         parsed_uri = urlparse( currentUrl )
         domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)

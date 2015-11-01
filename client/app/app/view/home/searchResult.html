@@ -6,6 +6,12 @@
             <md-content>
               <div class="parent">
                 <div class="child">
+                  <div 
+                    class=""
+                    style="padding:10px;"
+                    ng-show="$root.docs.length==0">
+                    No result.
+                  </div>
                   <md-list-item class="md-3-line" ng-repeat="item in $root.docs"  ng-click="clickContent(item)">
                     <div class="md-list-item-text">
                       <div class="title">

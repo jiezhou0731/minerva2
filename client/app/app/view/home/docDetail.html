@@ -1,6 +1,11 @@
-<div ng-controller="SearchResultDocDetailCtrl" ng-click="getSelectionText($event)"> 
+<div class="noselect" ng-controller="SearchResultDocDetailCtrl" ng-click="getSelectionText($event)" > 
   <div class="document" >
-    <md-content class="md-padding">
+    <div class="drag-to-delete-cover"
+        ng-show="dropToDeleteCover"
+        ui-on-Drop="onDropToDelete($event,$data)" 
+        ng-style="{ 'width' : coverWidth}">
+    </div>
+    <md-content class="md-padding from-top-animation-container">
         <md-card>
           <md-card-content>
                <div class="selected-text-pop-outter" 
@@ -55,30 +60,42 @@
         </md-card>
     </md-content>
   </div>
-  <div class="evidence-box">
+  <div class="evidence-box noselect">
     <md-content class="md-padding">
         <md-card>
           <md-card-content>
             <div class="parent">
               <div class="child" 
                       id="dropTextBox" >
-                <div style="z-index:900;" ui-on-Drop="onDrop($event,$data)" >
-                    <div class="cover-green" ng-show="dropCover">
+                <div style="z-index:900;">
+                    <div
+                      ng-style="{ 'width' : coverWidth}" 
+                      class="cover-green" 
+                      ng-show="dropCover"
+                      ui-on-Drop="onDrop($event,$data)"
+                      >
                     </div>
-                    <div class="cover-font" ng-show="dropCover">
-                        Drop here
+                    <div 
+                    class="cover-font" 
+                    ng-show="dropCover" 
+                    ui-on-Drop="onDrop($event,$data)" >
+                        Drag here
                       
                     </div>
                     <div class="chips"
                       ng-click="clickDropTextBox()" >
                         <div 
                           ng-repeat="droppedText in droppedTextArray track by $index" 
-             
                           ng-click="clickDroppedText(droppedText.text);" 
                           ng-right-click="rightClickDroppedText(droppedText,$event)" 
                           on-drop-success="dropTest()"> 
-                          <div class="chip" ng-style="{'background-color':droppedText.backgroundColor}"> 
-                                 <span>{{droppedText.text}}</span>
+                          <div  
+                          drag=droppedText ui-draggable="true" 
+                          class="chip" 
+                          ng-style="{'background-color':droppedText.backgroundColor}"
+                          ng-mouseenter="indicateDropToDeletePlace(true);"  
+                          ng-mouseleave="indicateDropToDeletePlace(false);"> 
+                                 {{droppedText.text}}
                                  <span ng-show="droppedText.type!=undefined" >({{droppedText.type}})</span>
                                   <div class="remove" ng-click="removeDroppedText($event, $index)">
                                     <md-icon md-svg-icon="md-close" class="ng-isolate-scope md-default-theme" ></md-icon>

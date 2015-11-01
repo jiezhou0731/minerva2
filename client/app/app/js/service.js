@@ -83,7 +83,7 @@ app.service('pythonService',function($http,$sce, $q,$rootScope){
 		 		},
 		 	success: function(response){
 		 		console.log(response);
-		 		response=[{"field":"Product","key":"Part #","value":"CY7C1470V33-167AXI"},{"field":"Product","key":"Manufactor","value":"CYPRESS"},{"field":"Seller","key":"Telephone","value":"0755-83207872"},{"field":"Seller","key":"Qq","value":"QQ:1143812087"},{"field":"Seller","key":"Email","value":"E-mail:xsdic518@yeah.net"},{"field":"Product","key":"Part #","value":"STMPE610QTR"},{"field":"Product","key":"Package","value":"QFN16"},{"field":"Product","key":"Part #","value":"MC68EZ328CPU16V"},{"field":"Product","key":"Manufactor","value":"MOTOROLA"}]
+		 		response=[{"field":"Product","key":"Part #","value":"CY7C1470V33-167AXI"},{"field":"Product","key":"Manufactor","value":"光临汕头全球电子有限公司"},{"field":"Seller","key":"Telephone","value":"0755-83207872"},{"field":"Seller","key":"Qq","value":"QQ:1143812087"},{"field":"Seller","key":"Email","value":"E-mail:xsdic518@yeah.net"},{"field":"Product","key":"Part #","value":"STMPE610QTR"},{"field":"Product","key":"Package","value":"QFN16"},{"field":"Product","key":"Part #","value":"MC68EZ328CPU16V"},{"field":"Product","key":"Manufactor","value":"MOTOROLA"}]
 		 		response=angular.fromJson(response);
               	defer.resolve(response);
 		 	},
@@ -105,7 +105,7 @@ app.service('pythonService',function($http,$sce, $q,$rootScope){
 		 		type: args.type
 		 		},
 		 	success: function(response){
-		 		response=[{"field":"Product","key":"Part #","value":"CY7C1470V33-167AXI"},{"field":"Product","key":"Manufactor","value":"CYPRESS"},{"field":"Seller","key":"Telephone","value":"0755-83207872"},{"field":"Seller","key":"Qq","value":"QQ:1143812087"},{"field":"Seller","key":"Email","value":"E-mail:xsdic518@yeah.net"},{"field":"Product","key":"Part #","value":"STMPE610QTR"},{"field":"Product","key":"Package","value":"QFN16"},{"field":"Product","key":"Part #","value":"MC68EZ328CPU16V"},{"field":"Product","key":"Manufactor","value":"MOTOROLA"}]
+		 		response=[{"field":"Product","key":"Part #","value":"CY7C1470V33-167AXI"},{"field":"Product","key":"Manufactor","value":"光临汕头全球电子有限公司"},{"field":"Seller","key":"Telephone","value":"0755-83207872"},{"field":"Seller","key":"Qq","value":"QQ:1143812087"},{"field":"Seller","key":"Email","value":"E-mail:xsdic518@yeah.net"},{"field":"Product","key":"Part #","value":"STMPE610QTR"},{"field":"Product","key":"Package","value":"QFN16"},{"field":"Product","key":"Part #","value":"MC68EZ328CPU16V"},{"field":"Product","key":"Manufactor","value":"MOTOROLA"}]
 		 		response=angular.fromJson(response);
               	defer.resolve(response);
 		 	},
@@ -287,6 +287,8 @@ app.service('solrService',function($http,$sce, $q,$rootScope){
 		 }*/
 		
 		 var url=solrQueryUrl;
+		
+		 query = query.replace(':', ' ');
 		 if ($rootScope.queryMode=="structural"){
 			 var old=query;
 			 query=convertStructuralQuery(query);

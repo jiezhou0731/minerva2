@@ -18,13 +18,14 @@ window.addEventListener('message', function(event) {
     var english = /^[A-Za-z0-9]*$/;
 
     keyword=event.data.keywords;
+    console.log(keyword);
     keyword=keyword.replace(/\W/g, ' ');
     keyword=keyword.trim().replace(/\s\s+/g, ' ');
     var keywords=keyword.split(" ");
     keyword="";
     var english = /^[A-Za-z0-9]*$/;
     for (var i = 0; i < keywords.length; i++) {
-        if (english.test(keyword)) {
+        if (english.test(keywords[i])) {
             keyword+=keywords[i]+" ";
         }
     }

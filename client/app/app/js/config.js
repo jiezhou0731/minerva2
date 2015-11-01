@@ -34,7 +34,7 @@ app.config(
       }).
 
       otherwise({
-        redirectTo: '/login'
+        redirectTo: '/home'
       });
 
   });
@@ -62,6 +62,7 @@ app.config(
           .otherwise({ redirectTo: '/login' });
   });
 */
+/*
 app.run(
     function run($rootScope, $location, $cookies, $http) {
         // keep user logged in after page refresh
@@ -79,3 +80,4 @@ app.run(
             }
         });
     });
+  */

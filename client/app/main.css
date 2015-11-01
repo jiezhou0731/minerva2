@@ -155,6 +155,10 @@ body{
 	margin-top:0px;
 }
 
+.search-result .doc-list md-content md-list-item.md-3-line > .md-no-style {
+    height: 87px;
+}
+
 .search-result .doc-list md-content md-list-item.md-3-line > .md-no-style{
 	padding-right: 0px;
     max-height: 100vh;
@@ -218,6 +222,36 @@ body{
 	width:50vw;
 	float:left;
 }
+
+.search-result .doc-detail .document .drag-to-delete-cover{
+    position:absolute; 
+    margin: 8px; 
+    height: 62vh; 
+    z-index:1001; 
+    background:none;
+    text-align:center;
+    font-size:6vh;
+    line-height: 16vh;
+    color:white;
+    padding-top:20vh;
+    opacity: 0.7;
+}
+
+.search-result .doc-detail .document .drag-to-delete-font{
+    opacity: 1;
+    background:none;
+    z-index:1002;
+}
+
+.search-result .doc-detail .document .drag-to-delete-cover.ng-hide-add, .search-result .doc-detail .document  .drag-to-delete-cover.ng-hide-remove {
+  transition: all linear 0.2s;
+}
+
+.search-result .doc-detail .document .drag-to-delete-cover.ng-hide {
+  opacity: 0;
+}
+
+
 
 .search-result .doc-detail .document .selected-text-pop-outter{
     position: absolute;
@@ -303,11 +337,11 @@ body{
 }
 
 
-.search-result .doc-detail .document .ng-hide-add, .search-result .doc-detail .document .ng-hide-remove {
+.search-result .doc-detail .document .from-top-animation-container .ng-hide-add, .search-result .doc-detail .document  .from-top-animation-container .ng-hide-remove {
   transition: all linear 0.5s;
 }
 
-.search-result .doc-detail .document .ng-hide {
+.search-result .doc-detail .document .from-top-animation-container .ng-hide {
   line-height: 0;
   opacity: 0;
   top:0px;
@@ -326,7 +360,7 @@ body{
 }
 
 .search-result .doc-detail .document .selected-text-pop{
-	border-radius: 16px;
+	border-radius: 5px;
     display: block;
     height: 32px;
     line-height: 32px;
@@ -423,11 +457,12 @@ body{
 	opacity: 0.5;
 	left:1vw;
 	top:2vh;
-	height: 18vh;
-	width:48vw; 
+	height: 19vh;
 	background-color:#45B6B0;
 	text-align:center;
 	font-size:6vh;
+    margin-top:-7px;
+    margin-left:-7px;
 }
 
 .search-result .doc-detail .cover-font {
@@ -453,14 +488,18 @@ body{
 	color:white;
 	float:left;
 	padding:3px 10px;
-	border-radius: 16px;
+    padding-top: 6px;
+    padding-right:5px;
+	border-radius: 5px;
 	margin: 2px;
+    max-width:40vw;
 }
 
 .search-result .doc-detail .evidence-box .chips .chip span{
     float: left;
-    padding-top: 3px;
-    max-width:40vw;
+    
+    
+    margin-right: 5px;
 }
 
 .search-result .doc-detail .evidence-box .chips .remove{
@@ -473,9 +512,10 @@ body{
     border: none;
     box-shadow: none;
     margin: 0;
+    margin-top:-3px;
     position: relative;
     transition: background 0.15s linear;    
-    float:left;
+    float:right;
     border-radius: 16px;
     border: solid 1px rgba(255, 255, 0, 0.0);
 }
@@ -483,11 +523,12 @@ body{
 .search-result .doc-detail .evidence-box .chips .remove:hover{
     border: solid white 1px;
     margin:0px;
+    margin-top:-3px;
 }
 
 .search-result .doc-detail .evidence-box .chips .remove md-icon{
     color:white;
-    margin-top: -1px;
+    margin-top: 0px;
     margin-left: -1px;
 }
 .search-result .doc-detail .evidence-box  .menu{
