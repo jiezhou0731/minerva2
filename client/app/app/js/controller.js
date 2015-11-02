@@ -287,12 +287,6 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 				extraction[""+k][part[k]]=true;
 			}
 		} 
-		for (var j in extraction){
-			console.log(j);
-			for (var k in extraction[j]){
-				console.log(k);
-			}
-		}
 		return extraction;
     }
     $rootScope.$watch('docs', function() {
@@ -310,12 +304,6 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 						extraction[""+k][part[k]]=true;
 					}
 				} 
-				for (var j in extraction){
-					console.log(j);
-					for (var k in extraction[j]){
-						console.log(k);
-					}
-				}
 				$rootScope.docs[i].extraction = extraction;
 			}
 		}
@@ -559,7 +547,7 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
     $scope.getMoreTags = function (text){
     	var extraction = $scope.extractEntities($scope.doc);
     	var data = [];
-    	var count = 0;
+    	var count = -1;
     	for (var j in extraction){
 			for (var k in extraction[j]){
 				count++;
@@ -568,6 +556,7 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 				data[count].key = j;
 			}
 		}
+		console.log(data);
 
     	for (var i=0; i<data.length; i++){
 			var isNewText=true;
@@ -624,9 +613,11 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
     $scope.getMoreSpecificTypeOfTags = function (text,type){
     	var extraction = $scope.extractEntities($scope.doc);
     	var data = [];
-    	var count = 0;
+    	var count = -1;
     	for (var j in extraction){
-    		if (type==j) {
+    		if (type.toUpperCase()==j.toUpperCase()) {
+
+    		
 				for (var k in extraction[j]){
 					count++;
 					data[count] = {};
