@@ -276,6 +276,25 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
       $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
     };
 
+    $scope.extractEntities = function (doc){
+		var extraction = {}
+		for(var j in doc.cdr_data.crawl_data){
+			var part = doc.cdr_data.crawl_data[j];
+			for (var k in part){
+				if (extraction[""+k]==undefined) {
+					extraction[""+k] = {};
+				}
+				extraction[""+k][part[k]]=true;
+			}
+		} 
+		for (var j in extraction){
+			console.log(j);
+			for (var k in extraction[j]){
+				console.log(k);
+			}
+		}
+		return extraction;
+    }
     $rootScope.$watch('docs', function() {
 		if ($rootScope.docs!=undefined && $rootScope.docs.length!=0) {
 			$scope.docExtraction = {};
@@ -294,9 +313,10 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 				for (var j in extraction){
 					console.log(j);
 					for (var k in extraction[j]){
-						console.log(extraction[j][k]);
+						console.log(k);
 					}
 				}
+				$rootScope.docs[i].extraction = extraction;
 			}
 		}
 	});
@@ -537,6 +557,42 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
     }
 
     $scope.getMoreTags = function (text){
+    	var extraction = $scope.extractEntities($scope.doc);
+    	var data = [];
+    	var count = 0;
+    	for (var j in extraction){
+			for (var k in extraction[j]){
+				count++;
+				data[count] = {};
+				data[count].value = k;
+				data[count].key = j;
+			}
+		}
+
+    	for (var i=0; i<data.length; i++){
+			var isNewText=true;
+			for (var j=0; j<$scope.droppedTextArray.length; j++){
+				if ($scope.droppedTextArray[j].text==data[i].value) {
+					isNewText=false;
+					break;	
+				}
+			}
+			if (isNewText==false) continue;
+			var droppedText = {};
+			droppedText.text=data[i].value;
+			droppedText.value=data[i].value;
+			droppedText.key=data[i].key;
+			droppedText.field=data[i].field;
+			if (data[i].key!=undefined){
+				droppedText.type=data[i].key;
+			}
+			droppedText.backgroundColor="#AEB645";
+			$scope.indexCounter++;
+			droppedText.index=$scope.indexCounter;
+			$scope.droppedTextArray.push(droppedText);
+		}
+
+    	/*
     	pythonService.getMoreTags(text)
     	.then(function(data){
     		for (var i=0; i<data.length; i++){
@@ -562,9 +618,47 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
     			$scope.droppedTextArray.push(droppedText);
     		}
     	});
+*/
     }
 
     $scope.getMoreSpecificTypeOfTags = function (text,type){
+    	var extraction = $scope.extractEntities($scope.doc);
+    	var data = [];
+    	var count = 0;
+    	for (var j in extraction){
+    		if (type==j) {
+				for (var k in extraction[j]){
+					count++;
+					data[count] = {};
+					data[count].value = k;
+					data[count].key = j;
+				}
+			}
+		}
+
+    	for (var i=0; i<data.length; i++){
+			var isNewText=true;
+			for (var j=0; j<$scope.droppedTextArray.length; j++){
+				if ($scope.droppedTextArray[j].text==data[i].value) {
+					isNewText=false;
+					break;	
+				}
+			}
+			if (isNewText==false) continue;
+			var droppedText = {};
+			droppedText.text=data[i].value;
+			droppedText.value=data[i].value;
+			droppedText.key=data[i].key;
+			droppedText.field=data[i].field;
+			if (data[i].key!=undefined){
+				droppedText.type=data[i].key;
+			}
+			droppedText.backgroundColor="#AEB645";
+			$scope.indexCounter++;
+			droppedText.index=$scope.indexCounter;
+			$scope.droppedTextArray.push(droppedText);
+		}
+    	/*
     	pythonService.getMoreSpecificTypeOfTags({text:text,type:type})
     	.then(function(data){
     		for (var i=0; i<data.length; i++){
@@ -590,6 +684,7 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
     			$scope.droppedTextArray.push(droppedText);
     		}
     	});
+		*/
     }
 
     $scope.$on('clickShowGraph',function(event, args){
