@@ -262,7 +262,7 @@ app.controller('SearchResultDocListCtrl', function(Restangular, solrService,$roo
 });
 
 //docDetail
-app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, pythonService,$scope, $rootScope) {
+app.controller('SearchResultDocDetailCtrl', function($timeout, $window, $sce, rootCookie, pythonService,$scope, $rootScope) {
 	$scope.data = {
       selectedIndex: 0,
       secondLocked:  true,
@@ -280,7 +280,10 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 		var extraction = {}
 		for(var j in doc.cdr_data.crawl_data){
 			var part = doc.cdr_data.crawl_data[j];
-			for (var k in part){
+			for (var k in part){	
+				if (k=="$$hashKey") {
+					continue;
+				}
 				if (extraction[""+k]==undefined) {
 					extraction[""+k] = {};
 				}
@@ -340,9 +343,7 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 
 		$("#docDetailPanel").scrollTop();
 		$scope.doc=args;
-		console.log($scope.doc.cdr_data );
 		$scope.doc.cdr_data = angular.fromJson($scope.doc.cdr_data);
-		//console.log($scope.doc.cdr_data);
 		$("#docDetailHtmlIframe").attr("src", "data/iframe.html");
 		var msg = {};
 		msg.content = $scope.doc.html;
@@ -355,7 +356,6 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 		if ($scope.doc==undefined || $scope.doc.html==undefined) return;
 
 		try {
-			console.l
 			if (document.getElementById("docDetailHtmlIframe").contentWindow.location.pathname
 				== "/mean/data/iframe.html") {
 				var msg = {};
@@ -435,7 +435,17 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 	$scope.indexCounter=0;
 	$scope.onDrop = function($event,$data){
 		for (var i=0; i<$scope.droppedTextArray.length; i++){
-			if ($scope.droppedTextArray[i].text==$data) return;	
+			if ($scope.droppedTextArray[i].text==$data){
+				$scope.droppedTextArray[i].enterHighlight = true;
+				$scope.droppedTextArray[i].backgroundColor="rgb(242, 38, 19)";
+				$timeout(function() {
+			        $scope.droppedTextArray[i].enterHighlight = false;
+			        $scope.droppedTextArray[i].backgroundColor="#45B6B0";
+			    }, 400);
+				$scope.indicateDropPlace(false);
+				$scope.selectedText = "";
+				return;
+			}	
 		}
 		$scope.indicateDropPlace(false);
 		$scope.selectedText = "";
@@ -443,7 +453,13 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 		droppedText.text=$data;
 		$scope.indexCounter++;
 		droppedText.index=$scope.indexCounter;
+		droppedText.enterHighlight = true;
+		droppedText.backgroundColor="rgb(242, 38, 19)";
 		$scope.droppedTextArray.push(droppedText);
+		$timeout(function() {
+	        droppedText.enterHighlight = false;
+	        droppedText.backgroundColor="#45B6B0";
+	    }, 200);
 		$('#dropTextBox').animate({scrollTop:$('#dropTextBox')[0].scrollHeight}, '600');
 	};
 
@@ -498,11 +514,12 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 	}
 
 	$scope.removeDroppedText=function($event, index){
+		$scope.indicateDropToDeletePlace(false);
 		$scope.droppedTextArray.splice(index,1);
 		$event.stopPropagation();
 	}
 
-	$scope.typeList=["Link", "Address", "Part #", "Email", "Telephone", "Manufacturer", "Device Type", "Name", "Employee", "QQ", "Website"];
+	$scope.typeList=["Link", "Address", "Model", "Email", "Telephone", "Manufacturer", "Device Type", "Name", "Employee", "QQ", "Website"];
 	$scope.menuPosition={};
 	$scope.rightClickDroppedText=function(droppedText,$event){
 		$event.stopPropagation();
@@ -556,17 +573,14 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 				data[count].key = j;
 			}
 		}
-		console.log(data);
 
     	for (var i=0; i<data.length; i++){
-			var isNewText=true;
 			for (var j=0; j<$scope.droppedTextArray.length; j++){
 				if ($scope.droppedTextArray[j].text==data[i].value) {
-					isNewText=false;
+					$scope.droppedTextArray.splice(j,1);
 					break;	
 				}
 			}
-			if (isNewText==false) continue;
 			var droppedText = {};
 			droppedText.text=data[i].value;
 			droppedText.value=data[i].value;
@@ -575,11 +589,20 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 			if (data[i].key!=undefined){
 				droppedText.type=data[i].key;
 			}
-			droppedText.backgroundColor="#AEB645";
+			droppedText.backgroundColor="rgb(242, 38, 19)";
+			
 			$scope.indexCounter++;
 			droppedText.index=$scope.indexCounter;
+			droppedText.enterHighlight = true;
 			$scope.droppedTextArray.push(droppedText);
 		}
+		$timeout(function() {
+			for (var j=0; j<$scope.droppedTextArray.length; j++){
+				var droppedText = $scope.droppedTextArray[j];
+				droppedText.backgroundColor="#45B6B0";
+		        droppedText.enterHighlight = false;
+	    	}
+	    }, 200);
 
     	/*
     	pythonService.getMoreTags(text)
@@ -616,8 +639,6 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
     	var count = -1;
     	for (var j in extraction){
     		if (type.toUpperCase()==j.toUpperCase()) {
-
-    		
 				for (var k in extraction[j]){
 					count++;
 					data[count] = {};
@@ -628,14 +649,12 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 		}
 
     	for (var i=0; i<data.length; i++){
-			var isNewText=true;
 			for (var j=0; j<$scope.droppedTextArray.length; j++){
 				if ($scope.droppedTextArray[j].text==data[i].value) {
-					isNewText=false;
+					$scope.droppedTextArray.splice(j,1);
 					break;	
 				}
 			}
-			if (isNewText==false) continue;
 			var droppedText = {};
 			droppedText.text=data[i].value;
 			droppedText.value=data[i].value;
@@ -648,6 +667,10 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 			$scope.indexCounter++;
 			droppedText.index=$scope.indexCounter;
 			$scope.droppedTextArray.push(droppedText);
+			droppedText.enterHighlight = true;
+			$timeout(function() {
+		        droppedText.enterHighlight = false;
+		    }, 200);
 		}
     	/*
     	pythonService.getMoreSpecificTypeOfTags({text:text,type:type})

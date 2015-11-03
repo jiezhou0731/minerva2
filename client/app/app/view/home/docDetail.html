@@ -93,10 +93,11 @@
                           drag=droppedText ui-draggable="true" 
                           class="chip" 
                           ng-style="{'background-color':droppedText.backgroundColor}"
+                          ng-class="{ enterHighlight: droppedText.enterHighlight }"
                           ng-mouseenter="indicateDropToDeletePlace(true);"  
                           ng-mouseleave="indicateDropToDeletePlace(false);"> 
                                  {{droppedText.text}}
-                                 <span ng-show="droppedText.type!=undefined" >({{droppedText.type}})</span>
+                                 <span ng-show="droppedText.type!=undefined" >({{droppedText.type.toLowerCase()}})</span>
                                   <div class="remove" ng-click="removeDroppedText($event, $index)">
                                     <md-icon md-svg-icon="md-close" class="ng-isolate-scope md-default-theme" ></md-icon>
                                 </div>
