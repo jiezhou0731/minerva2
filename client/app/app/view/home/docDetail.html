@@ -105,7 +105,7 @@
                               <div  ng-show="droppedText.showMenu" class="dropped-text-types" ng-click="clickMenu(droppedText,'tag',$event)">
                                   tag
                               </div>
-                              <div  ng-show="droppedText.showMenu" class="dropped-text-types" ng-click="clickMenu(droppedText,'find more this type',$event)" style="width:140px;">
+                              <div  ng-show="droppedText.showMenu && droppedText.type!=undefined" class="dropped-text-types" ng-click="clickMenu(droppedText,'find more this type',$event)" style="width:140px;">
                                     find more this type
                               </div>
                               <div ng-show="droppedText.showMenu" class="dropped-text-types" style="width:120;" ng-click="clickMenu(droppedText,'find more',$event)">
