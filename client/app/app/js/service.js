@@ -3,6 +3,35 @@ var pythonGetMoreTags = 'http://141.161.20.98/direwolf/pythonCgi/getMoreTags.cgi
 var pythonSearch = 'http://141.161.20.98/direwolf/pythonCgi/pattern_handler.cgi';
 var pythonGetPossiblePairs = 'http://141.161.20.98/direwolf/pythonCgi/getPossiblePairs.cgi';
 var pythonGetMoreSpecificTypeOfTags = 'http://141.161.20.98/direwolf/pythonCgi/getMoreSpecificTypeOfTags.cgi';
+var googleTranslate = 'https://www.googleapis.com/language/translate/v2'
+var googleTranslateApiKey = "AIzaSyCXFfq_ofDGdPIsfdLo_Esc5Nhf8V2qGyw"
+
+app.service('googleTranslate',function($http,$sce, $q,$rootScope){
+	this.translateHtmlToEnglish = function (args){
+		var defer = $q.defer();
+		$.ajax({
+          type: "GET",
+          url: "https://www.googleapis.com/language/translate/v2",
+          data: { key: googleTranslateApiKey, 
+          	target: "en", 
+          	q: args.html
+      	  },
+          dataType: 'jsonp',
+          success: function (data) {
+                console.log(data.data.translations[0].translatedText);
+                var result = {};
+                result.callbackPara = args.callbackPara;
+                result.html = data.data.translations[0].translatedText;
+      			defer.resolve(result);
+          },
+          error: function (data) {
+               defer.reject('Can not connect to server');
+          }
+       	});
+       	return defer.promise;;
+	}
+
+});
 
 app.service('pythonService',function($http,$sce, $q,$rootScope){
 	this.queryData = function (args){
@@ -174,7 +203,7 @@ app.service('rootCookie',function($rootScope,$cookies){
 	}
 });
 
-app.service('solrService',function($http,$sce, $q,$rootScope){
+app.service('solrService',function(googleTranslate, $http,$sce, $q,$rootScope){
 	this.sendUpVote = function (doc){
 	}
 	this.sendDownVote = function (doc){
@@ -193,7 +222,7 @@ app.service('solrService',function($http,$sce, $q,$rootScope){
 		                    }
 		            })
 		            .success(function(response) {
-		              	defer.resolve();
+		              	defer.resolve(html);
 		            }).error(function() {
 		            	defer.reject('Can not get data from Solr');
 		 });
@@ -220,13 +249,14 @@ app.service('solrService',function($http,$sce, $q,$rootScope){
 		                    'status':status
 		                    }
 		            })
-		            .success(function(response) {
+		            .success(function(response) {       	
 		            	docs= response.response.docs;
 		              	for (var prop in  response.highlighting) {
 		            	  	for (var doc in docs){
 		            		  	if (docs[doc].id==prop){
 		            		  		try {
 		            		  			docs[doc].highlighting=docs[doc].content;
+		            		  		
 		            		  		} catch (err){
 		            		  			docs[doc].highlighting="";
 		            		  		}
@@ -333,7 +363,18 @@ app.service('solrService',function($http,$sce, $q,$rootScope){
 		            	  	for (var doc in docs){
 		            		  	if (docs[doc].id==prop){
 		            		  		try {
-		            		  			docs[doc].highlighting=highlight(response.highlighting[prop].content[0],query);
+		            		  			console.log(response.highlighting[prop].content[0],query);
+		         	   		  			docs[doc].highlighting=highlight(cleanText(response.highlighting[prop].content[0]),query);
+		            		  			
+		            		  			// Translate
+		            		  			if (docs[doc].language!=undefined && docs[doc].language!="English") {
+			            		  			var args ={};
+			            		  			args.html = docs[doc].highlighting;
+			            		  			args.callbackPara = doc;
+			            		  			googleTranslate.translateHtmlToEnglish(args).then(function(data){
+			            		  				docs[data.callbackPara].translatedHighlighting=data.html;
+			            		  			});
+		            		  			}
 		            		  		} catch (err){
 		            		  			docs[doc].highlighting="";
 		            		  		}
@@ -344,6 +385,8 @@ app.service('solrService',function($http,$sce, $q,$rootScope){
 		      				// Convert NULL title to "No Title"
 		      				if (docs[i].title==null ||docs[i].title=="") {
 		      					docs[i].title="No Title";
+		      				} else {
+		      					docs[i].title = shorten(cleanText(docs[i].title),50);
 		      				}
 		      			
 		      				// Unescape highlights' HTML 
@@ -353,15 +396,27 @@ app.service('solrService',function($http,$sce, $q,$rootScope){
 		      				}
 
 		      				docs[i].plainContent=docs[i].content;
-		      				docs[i].content+="&nbsp; THE END."
+
+		      				// Translate
+		            		if (docs[i].language!=undefined && docs[i].language!="English") {		  		
+			      				var args ={};
+	        		  			args.html = docs[i].title;
+	        		  			args.callbackPara = i;
+	        		  			googleTranslate.translateHtmlToEnglish(args).then(function(data){
+	        		  				docs[data.callbackPara].translatedTitle=data.html;
+	        		  				docs[data.callbackPara].isTranslated = true;
+	        		  			});
+        		  			}
+        		  			docs[i].content+="&nbsp; THE END."
 		      				docs[i].content=unescape(docs[i].content);
-		      				docs[i].content=$sce.trustAsHtml(highlight(docs[i].content,query));
+		      				docs[i].content=$sce.trustAsHtml(highlight(docs[i].content,query)); 
 		      				docs[i].escapedUlr=docs[i].url;
 		      				docs[i].url=unescape(docs[i].url);
 		      				$sce.trustAsResourceUrl(docs[i].url);
 		      				docs[i].upVote=null;
 		      				docs[i].downVote=null;
 		      			}
+		      			docs.numFound = response.response.numFound;
 		              	data = {userState:userState, docs:docs, numFound:response.response.numFound};
 		              	defer.resolve(data);
 		            }).error(function() {

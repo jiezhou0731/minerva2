@@ -48,8 +48,12 @@ $("#content").click(function(event){
 	}	
 
 	text = text.trim();
-    
-    window.parent.postMessage(text, '*');
+    var msg = {};
+    msg.text = text;
+    msg.clientX = event.clientX;
+    msg.clientY = event.clientY;
+
+    window.parent.postMessage(msg, '*');
 });
 
 function snapSelectionToWord() {

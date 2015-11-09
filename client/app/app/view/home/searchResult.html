@@ -14,15 +14,42 @@
                   </div>
                   <md-list-item class="md-3-line" ng-repeat="item in $root.docs"  ng-click="clickContent(item)">
                     <div class="md-list-item-text">
-                      <div class="title">
-                          <div class="rank">#{{$index+1}}</div> {{item.title}}
+                      <div
+                        class="only" 
+                        ng-class="{ isTranslated: item.isTranslated}">
+                        <div class="title">
+                            <div class="rank">#{{$index+1}}</div> 
+                            {{item.title}}
+                        </div>
+                        <div class="snippet" ng-bind-html="item.highlighting">
+                              {{item.highlighting}}
+                        </div>
                       </div>
-                      <div class="snippet" ng-bind-html="item.highlighting">
-                            {{item.highlighting}}
+
+                      <div 
+                         ng-if="item.isTranslated"
+                         ng-class="{ isTranslated: item.isTranslated}">
+                        <div class="title">
+                            {{item.translatedTitle}}
+                        </div>
+                        <div class="snippet" ng-bind-html="item.translatedHighlighting">
+                             {{item.translatedHighlighting}}
+                        </div>
                       </div>
                     </div>
                     <md-divider ng-if="!$last"></md-divider>
                   </md-list-item>
+                  <div class="controller noselect">
+                    <i ng-show="$root.page!=1" class="glyphicon glyphicon-chevron-left pre-page" ng-click="prePage()">
+                      
+                    </i>
+                    <i 
+                      ng-show="$root.page*$root.resultPerPage<$root.docs.numFound"
+                      class="glyphicon glyphicon-chevron-right next-page" 
+                      ng-click="nextPage()">
+                      
+                    </i>
+                  </div>
                 </div>
               </div>
             </md-content>

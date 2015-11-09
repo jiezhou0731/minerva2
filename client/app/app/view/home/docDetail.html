@@ -9,6 +9,10 @@
         <md-card>
           <md-card-content>
                <div class="selected-text-pop-outter" 
+                  ng-style="{
+                    'top':selectedTextPosition.top,
+                    'left':selectedTextPosition.left
+                  }"
                   ng-mouseenter="indicateDropPlace(true);"  
                   ng-mouseleave="indicateDropPlace(false);"
                   ng-show="selectedText.length!=0">
@@ -38,8 +42,12 @@
                         </md-tab-body>
                       </md-tab>
                       <md-tab>
-                        <md-tab-label>Parts</md-tab-label>
+                        <md-tab-label>Extraction</md-tab-label>
                         <md-tab-body>
+                          <div class="json-container">
+                            <json-formatter  class="json-formatter-dark" open="10" json="doc.cdr_data.crawl_data"></json-formatter>
+                          </div>
+                        <!--
                           <md-list class="parts">
                             <md-list-item class="item-box" ng-repeat="part in doc.cdr_data.crawl_data" >
                               <div class="md-whiteframe-z1 item">
@@ -52,6 +60,7 @@
                               </div>
                             </md-list-item>
                           </md-list>
+                        -->
                         </md-tab-body>
                       </md-tab>
                     </md-tabs>

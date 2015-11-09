@@ -192,14 +192,68 @@ body{
     word-wrap: break-word;
     font-size: small;
     font-family: arial, sans-serif;
+    max-height: 80px;
+    height: 80px;
 }
 
 .search-result .doc-list .title{
-	font-size: 18px;
     font-weight: normal;
     font-family: arial,sans-serif;
     overflow: hidden;
 }
+
+
+.search-result .doc-list .only{
+    width:100%;
+}
+
+
+.search-result .doc-list .only .title{
+    font-size: 18px;
+}
+
+.search-result .doc-list .isTranslated{
+    width:49%;
+    float:left;
+}
+
+.search-result .doc-list .isTranslated .title{
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.search-result .doc-list .isTranslated .snippet{
+    font-size: 10px;
+    line-height: 1.2;
+}
+
+.search-result .controller{
+    position: absolute;
+}
+
+.search-result .controller{
+    width:100px;
+    height:30px;
+    font-size: 25px;
+    bottom:2px;
+    right:2px;
+    color:#BDC3C7;
+}
+
+.search-result .controller .glyphicon:hover{
+    color:#333;
+}
+
+.search-result .controller .pre-page{
+    position: absolute;
+    margin-left:0px;
+}
+
+.search-result .controller .next-page{
+    position: absolute;
+    margin-left:35px;
+}
+
 
 .search-result .doc-list .rank{
 	background-color: #DADFE1;
@@ -300,6 +354,16 @@ body{
     padding-top:0px;
     line-height: 30px;
 }
+
+.search-result .doc-detail .document .tabs .json-container {
+    background:#333; 
+    max-height:45vh; 
+    overflow:scroll;
+    padding:5px;
+    padding-left:10px;
+    cursor: default;
+}
+
 .search-result .doc-detail .document  md-card md-card-content{
     padding:0px;
 } 

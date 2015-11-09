@@ -1,4 +1,4 @@
-var app = angular.module('app',[ 'ngAnimate', 'ngRoute','ngSanitize','ngCookies','ngMaterial','ngRoute','ngDragDrop', 'restangular']).config(function($mdIconProvider) {
+var app = angular.module('app',[ 'jsonFormatter','ngAnimate', 'ngRoute','ngSanitize','ngCookies','ngMaterial','ngRoute','ngDragDrop', 'restangular']).config(function($mdIconProvider) {
   $mdIconProvider
   .iconSet("call", 'img/icons/sets/communication-icons.svg', 24)
   .iconSet("social", 'img/icons/sets/social-icons.svg', 24);

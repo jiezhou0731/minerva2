@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "dependencies": {
     "npm": "~2.13.5",
-    "livereload-js": "~2.2.2"
+    "livereload-js": "~2.2.2",
+    "json-formatter": "~0.1.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

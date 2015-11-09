@@ -116,10 +116,23 @@ app.controller('sphereClickedDropdownMenuCtrl', function($scope) {
 });
 
 
-app.controller('SearchResultDocListCtrl', function(Restangular, solrService,$rootScope, $scope, $mdDialog) {
+app.controller('SearchResultDocListCtrl', function(googleTranslate, Restangular, solrService,$rootScope, $scope, $mdDialog) {
+
 	$rootScope.state="searchResult";
 	$rootScope.beginning = "true";
 
+	$scope.nextPage = function (){
+		$rootScope.page++;
+		if ($rootScope.page<0) {
+			$rootScope.page = 0;
+		}
+		$rootScope.$broadcast('sendQuery',{query:$rootScope.query, start:($rootScope.page-1)*$rootScope.resultPerPage});
+	}
+
+	$scope.prePage = function (){
+		$rootScope.page--;
+		$rootScope.$broadcast('sendQuery',{query:$rootScope.query, start:($rootScope.page-1)*$rootScope.resultPerPage});
+	}
 
 	$rootScope.$watch('docs', function() {
 		if ($rootScope.docs!=undefined && $rootScope.docs.length!=0) {
@@ -385,14 +398,14 @@ app.controller('SearchResultDocDetailCtrl', function($timeout, $window, $sce, ro
 		 args.runApply=true;
 		 $rootScope.$broadcast('clearHoverPannels',args);
 		 if (event.data!=undefined && event.data.length!=0) {
-			 $scope.selectedTextPosition.left=20;
-			 $scope.selectedTextPosition.top=50;
+			 $scope.selectedTextPosition.left=event.data.clientX+"px";
+			 $scope.selectedTextPosition.top=event.data.clientY+20+"px";
 
-			 var text = event.data
+			 var text = event.data.text;
 			 // Get first 5 words if text too long.
-			 var regex = /\s+/gi;
+			 var regex = /:/gi;
 			 if (text.trim().replace(regex, ' ').split(' ').length>5) {
-				text = text.split(/\s+/).slice(1,5).join(" ");
+				text = text.split(/:/).slice(1,5).join(" ");
 			 }
 
 			 $scope.selectedText=text;
@@ -411,9 +424,9 @@ app.controller('SearchResultDocDetailCtrl', function($timeout, $window, $sce, ro
 			text = document.selection.createRange().text;
 		}	
 		// Get first 5 words if text too long.
-		var regex = /\s+/gi;
+		var regex = /:/gi;
 		if (text.trim().replace(regex, ' ').split(' ').length>5) {
-			text = text.split(/\s+/).slice(1,5).join(" ");
+			text = text.split(/:/).slice(1,5).join(" ");
 		}
 		$scope.selectedText=text.trim();
 		return text;
@@ -519,7 +532,7 @@ app.controller('SearchResultDocDetailCtrl', function($timeout, $window, $sce, ro
 		$event.stopPropagation();
 	}
 
-	$scope.typeList=["Link", "Address", "Model", "Email", "Telephone", "Manufacturer", "Device Type", "Name", "Employee", "QQ", "Website"];
+	$scope.typeList=["part #","address",  "email", "telephone", "manufacturer", "device type", "name", "employee", "qq", "website"];
 	$scope.menuPosition={};
 	$scope.rightClickDroppedText=function(droppedText,$event){
 		$event.stopPropagation();
@@ -582,13 +595,18 @@ app.controller('SearchResultDocDetailCtrl', function($timeout, $window, $sce, ro
 				}
 			}
 			var droppedText = {};
+			if (data[i].key!=undefined && data[i].key.toLowerCase()=="model"){
+				data[i].key="part #";
+			}
+			if (data[i].key!=undefined && $scope.typeList.indexOf(data[i].key.toLowerCase())>=0){
+				droppedText.type=data[i].key;
+			} else {
+				continue;
+			}
 			droppedText.text=data[i].value;
 			droppedText.value=data[i].value;
 			droppedText.key=data[i].key;
 			droppedText.field=data[i].field;
-			if (data[i].key!=undefined){
-				droppedText.type=data[i].key;
-			}
 			droppedText.backgroundColor="rgb(242, 38, 19)";
 			
 			$scope.indexCounter++;
@@ -603,34 +621,6 @@ app.controller('SearchResultDocDetailCtrl', function($timeout, $window, $sce, ro
 		        droppedText.enterHighlight = false;
 	    	}
 	    }, 200);
-
-    	/*
-    	pythonService.getMoreTags(text)
-    	.then(function(data){
-    		for (var i=0; i<data.length; i++){
-    			var isNewText=true;
-    			for (var j=0; j<$scope.droppedTextArray.length; j++){
-    				if ($scope.droppedTextArray[j].text==data[i].value) {
-    					isNewText=false;
-    					break;	
-    				}
-    			}
-    			if (isNewText==false) continue;
-    			var droppedText = {};
-    			droppedText.text=data[i].value;
-    			droppedText.value=data[i].value;
-    			droppedText.key=data[i].key;
-    			droppedText.field=data[i].field;
-    			if (data[i].key!=undefined){
-    				droppedText.type=data[i].key;
-    			}
-    			droppedText.backgroundColor="#AEB645";
-    			$scope.indexCounter++;
-    			droppedText.index=$scope.indexCounter;
-    			$scope.droppedTextArray.push(droppedText);
-    		}
-    	});
-*/
     }
 
     $scope.getMoreSpecificTypeOfTags = function (text,type){
@@ -672,33 +662,6 @@ app.controller('SearchResultDocDetailCtrl', function($timeout, $window, $sce, ro
 		        droppedText.enterHighlight = false;
 		    }, 200);
 		}
-    	/*
-    	pythonService.getMoreSpecificTypeOfTags({text:text,type:type})
-    	.then(function(data){
-    		for (var i=0; i<data.length; i++){
-    			var isNewText=true;
-    			for (var j=0; j<$scope.droppedTextArray.length; j++){
-    				if ($scope.droppedTextArray[j].text==data[i].value) {
-    					isNewText=false;
-    					break;	
-    				}
-    			}
-    			if (isNewText==false) continue;
-    			var droppedText = {};
-    			droppedText.text=data[i].value;
-    			droppedText.value=data[i].value;
-    			droppedText.key=data[i].key;
-    			droppedText.field=data[i].field;
-    			if (data[i].key!=undefined){
-    				droppedText.type=data[i].key;
-    			}
-    			droppedText.backgroundColor="#AEB645";
-    			$scope.indexCounter++;
-    			droppedText.index=$scope.indexCounter;
-    			$scope.droppedTextArray.push(droppedText);
-    		}
-    	});
-		*/
     }
 
     $scope.$on('clickShowGraph',function(event, args){
@@ -1106,6 +1069,21 @@ function highlight(target, keyword){
 	}
 
 	return target;
+}
+function cleanText(text){
+	text = text.replace(/<\\\/title>/g, '');
+	text = text.replace(/\\n/g, '');
+	text = text.replace(/\\r/g, '');
+	return text;
+}
+
+function shorten(text, length){
+	if (text.length<=length) {
+		return text;
+	}
+	text = text.substring(0,length);
+	text = text + "...";
+	return text;
 }
 
 function snapSelectionToWord() {

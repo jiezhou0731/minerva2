@@ -70,6 +70,7 @@ while doc_total_number<101:
         d['title'] = soup.title.text
         [s.extract() for s in soup('script')]
         d['content'] = soup.getText()
+        d['language'] = "Chinese"
 
 
         parsed_uri = urlparse( currentUrl )
