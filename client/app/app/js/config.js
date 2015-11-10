@@ -39,7 +39,7 @@ app.config(
 
   });
 
-/*
+
 app.config(
   function config($routeProvider, $locationProvider) {
       $routeProvider
@@ -61,8 +61,8 @@ app.config(
 
           .otherwise({ redirectTo: '/login' });
   });
-*/
-/*
+
+
 app.run(
     function run($rootScope, $location, $cookies, $http) {
         // keep user logged in after page refresh
@@ -80,4 +80,4 @@ app.run(
             }
         });
     });
-  */
+  

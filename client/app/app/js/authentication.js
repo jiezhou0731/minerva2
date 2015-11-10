@@ -29,7 +29,7 @@
 })();
 
 
-app.factory('UserService', function(Restangular,$http){
+app.factory('UserService', function(Restangular,$http, $q){
      
     var service = {};
 
@@ -51,12 +51,29 @@ app.factory('UserService', function(Restangular,$http){
     }
 
     function GetByUsername(username) {
-        return $http.get('/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
+        var deferred = $q.defer();
+        Restangular.all('user').getList({
+            username: username
+            }).then(function(list){ 
+                deferred.resolve(list[0]);
+            });
+        return deferred.promise;
     }
 
     function Create(user) {
-        return Restangular.all('user').post(user).then(handleSuccess, handleError('Error creating user'));
-        //return $http.post('/api/users', user).then(handleSuccess, handleError('Error creating user'));
+        var deferred = $q.defer();
+        Restangular.all('user').getList({
+            username: user.username
+            }).then(function(list){
+            if (list[0]==undefined) {
+                Restangular.all('user').post(user).then(function(){
+                    deferred.resolve({ success: true }); 
+                });
+            } else {
+                deferred.resolve({ success: false, message: 'Username "' + user.username + '" is already taken' });
+            }
+        });
+        return deferred.promise;
     }
 
     function Update(user) {
@@ -155,20 +172,21 @@ app.factory('UserService', function(Restangular,$http){
         return service;
 
         function Login(username, password, callback) {
-
-            /* Dummy authentication for testing, uses $timeout to simulate api call
-             ----------------------------------------------*/
-            $timeout(function () {
-                var response;
+             var response;
                 UserService.GetByUsername(username)
                     .then(function (user) {
-                        if (user !== null && user.password === password) {
+                        if (user!=undefined && user !== null && user.password === password) {
                             response = { success: true };
                         } else {
                             response = { success: false, message: 'Username or password is incorrect' };
                         }
                         callback(response);
                     });
+
+            /* Dummy authentication for testing, uses $timeout to simulate api call
+             ----------------------------------------------*/
+            $timeout(function () {
+               
             }, 1000);
 
             /* Use this for real authentication
@@ -285,7 +303,7 @@ app.factory('UserService', function(Restangular,$http){
 
 })();
 
-
+/*
 (function () {
     'use strict';
 
@@ -404,4 +422,4 @@ app.factory('UserService', function(Restangular,$http){
             localStorage.users = JSON.stringify(users);
         }
     }
-})();
+})(); */

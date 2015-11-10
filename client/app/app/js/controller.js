@@ -1207,11 +1207,13 @@ app.directive('ngRightClick', function($parse) {
 
         vm.login = login;
 
+        /*
         (function initController() {
             // reset login status
             AuthenticationService.ClearCredentials();
         })();
-
+		*/
+		
         function login() {
             vm.dataLoading = true;
             AuthenticationService.Login(vm.username, vm.password, function (response) {
