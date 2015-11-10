@@ -7,7 +7,12 @@ var app = angular.module('app',[ 'jsonFormatter','ngAnimate', 'ngRoute','ngSanit
 
 app.config(
   function($routeProvider,RestangularProvider) {
-    RestangularProvider.setBaseUrl('http://141.161.20.98/tensecpush');
+    //RestangularProvider.setBaseUrl('http://141.161.20.98/tensecpush');
+    RestangularProvider.setDefaultHeaders({
+      "Content-Type": "application/json",
+      "X-Requested-With": "XMLHttpRequest"
+    });
+    RestangularProvider.setBaseUrl('http://localhost:3000');
     RestangularProvider.setRestangularFields({
       id: "_id"
     });
@@ -66,7 +71,7 @@ app.config(
 app.run(
     function run($rootScope, $location, $cookies, $http) {
         // keep user logged in after page refresh
-        $rootScope.globals = $cookies.get('globals') || {};
+        $rootScope.globals = $cookies.getObject('globals') || {};
         if ($rootScope.globals.currentUser) {
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
         }

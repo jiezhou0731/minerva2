@@ -18,7 +18,6 @@ app.service('googleTranslate',function($http,$sce, $q,$rootScope){
       	  },
           dataType: 'jsonp',
           success: function (data) {
-                console.log(data.data.translations[0].translatedText);
                 var result = {};
                 result.callbackPara = args.callbackPara;
                 result.html = data.data.translations[0].translatedText;
@@ -111,7 +110,6 @@ app.service('pythonService',function($http,$sce, $q,$rootScope){
 		 		text: args
 		 		},
 		 	success: function(response){
-		 		console.log(response);
 		 		response=[{"field":"Product","key":"Part #","value":"CY7C1470V33-167AXI"},{"field":"Product","key":"Manufactor","value":"光临汕头全球电子有限公司"},{"field":"Seller","key":"Telephone","value":"0755-83207872"},{"field":"Seller","key":"Qq","value":"QQ:1143812087"},{"field":"Seller","key":"Email","value":"E-mail:xsdic518@yeah.net"},{"field":"Product","key":"Part #","value":"STMPE610QTR"},{"field":"Product","key":"Package","value":"QFN16"},{"field":"Product","key":"Part #","value":"MC68EZ328CPU16V"},{"field":"Product","key":"Manufactor","value":"MOTOROLA"}]
 		 		response=angular.fromJson(response);
               	defer.resolve(response);
@@ -156,8 +154,6 @@ app.service('pythonService',function($http,$sce, $q,$rootScope){
 			},
 			success: function(response){
 		 		//response=angular.fromJson(response);
-		 		console.log("from cgi:");
-		 		console.log(response);
 		 		defer.resolve(response);
 		 	},
 		 	error: function(){
@@ -363,7 +359,6 @@ app.service('solrService',function(googleTranslate, $http,$sce, $q,$rootScope){
 		            	  	for (var doc in docs){
 		            		  	if (docs[doc].id==prop){
 		            		  		try {
-		            		  			console.log(response.highlighting[prop].content[0],query);
 		         	   		  			docs[doc].highlighting=highlight(cleanText(response.highlighting[prop].content[0]),query);
 		            		  			
 		            		  			// Translate

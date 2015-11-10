@@ -31,9 +31,30 @@
 </div>
 
 <div class="top-right-tools" >
-  <i class="glyphicon glyphicon-scale open-button"  ng-controller="statisticsCtrl" ng-click="showCustomToast()"></i>
+  <i class="glyphicon glyphicon-exclamation-sign open-button"  ng-controller="warningCtrl" ng-click="clickOpenButton()"></i>
+  <span class="number">
+    2
+  </span>
+  <script type="text/ng-template" id="topRightToolsWarning.html">
+  <md-toast class="top-right-tools-toast top-right-tools-toast-warning">
+      <md-list-item class="item" ng-repeat="warning in warnings" ng-click="goToPerson(person.title, $event)">
+        <div class="content">
+          <div class="title">{{ warning.title }}</div>
+          <div class="detail">
+              <span class="entity">{{ warning.entity }}</span>
+              appears in <span>{{ warning.numberOfAppearance }}</span>
+              during <span>{{ warning.duration }}</span>
+          </div>
+        </div>
+        <md-divider ng-if="!$last"></md-divider>
+      </md-list-item>
+      <i class="glyphicon glyphicon-remove top-right-tools-close"  ng-click="closeToast()"></i>
+  </md-toast>
+  </script>
+
+  <i class="glyphicon glyphicon-scale open-button"  ng-controller="statisticsCtrl" ng-click="clickOpenButton()"></i>
   <script type="text/ng-template" id="topRightToolsStatistics.html">
-  <md-toast>
+  <md-toast class="top-right-tools-toast">
     <div class="top-right-tools-table">
       <div class="top-right-tools-row">
           <div class="top-right-tools-cell">
@@ -68,9 +89,9 @@
   </md-toast>
   </script>
 
-  <i class="glyphicon glyphicon-user open-button"   ng-controller="accountCtrl" ng-click="showCustomToast()"></i>
+  <i class="glyphicon glyphicon-user open-button"   ng-controller="accountCtrl" ng-click="clickOpenButton()"></i>
   <script type="text/ng-template" id="topRightToolsAccount.html">
-  <md-toast>
+  <md-toast class="top-right-tools-toast">
     <div class="top-right-tools-table">
 
       <div class="top-right-tools-row">

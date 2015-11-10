@@ -116,7 +116,7 @@ app.controller('sphereClickedDropdownMenuCtrl', function($scope) {
 });
 
 
-app.controller('SearchResultDocListCtrl', function(googleTranslate, Restangular, solrService,$rootScope, $scope, $mdDialog) {
+app.controller('SearchResultDocListCtrl', function($http, googleTranslate, Restangular, solrService,$rootScope, $scope, $mdDialog) {
 
 	$rootScope.state="searchResult";
 	$rootScope.beginning = "true";
@@ -369,8 +369,7 @@ app.controller('SearchResultDocDetailCtrl', function($timeout, $window, $sce, ro
 		if ($scope.doc==undefined || $scope.doc.html==undefined) return;
 
 		try {
-			if (document.getElementById("docDetailHtmlIframe").contentWindow.location.pathname
-				== "/mean/data/iframe.html") {
+			if (document.getElementById("docDetailHtmlIframe").contentWindow.location.pathname.indexOf("data/iframe.html")>0) {
 				var msg = {};
 				msg.content = $scope.doc.html;
 				msg.keywords = $rootScope.queryRegular.replace(/[^\w\s]/gi, ' ');;
@@ -918,6 +917,83 @@ app.controller('userStateController', function(solrService,rootCookie,$scope, $r
 	}
 });
 
+app.controller('warningCtrl', function($mdToast,$document, solrService,rootCookie,$scope, $rootScope) {
+  $scope.warnings = [
+  	{title:"Crime Warning", entity:"Part # HCPL-2631-300E", numberOfAppearance:3, duration:"32 minutes."},
+  	{title:"Crime Warning", entity:"Part # HCPL-2631-300E", numberOfAppearance:3, duration:"32 minutes."},
+  	{title:"Crime Warning", entity:"Part # HCPL-2631-300E", numberOfAppearance:3, duration:"32 minutes."},
+  	{title:"Crime Warning", entity:"Part # HCPL-2631-300E", numberOfAppearance:3, duration:"32 minutes."},
+  	{title:"Crime Warning", entity:"Part # HCPL-2631-300E", numberOfAppearance:3, duration:"32 minutes."},
+  	{title:"Crime Warning", entity:"Part # HCPL-2631-300E", numberOfAppearance:3, duration:"32 minutes."},
+  	{title:"Crime Warning", entity:"Part # HCPL-2631-300E", numberOfAppearance:3, duration:"32 minutes."},
+  	{title:"Crime Warning", entity:"Part # HCPL-2631-300E", numberOfAppearance:3, duration:"32 minutes."},
+  	{title:"Crime Warning", entity:"Part # HCPL-2631-300E", numberOfAppearance:3, duration:"32 minutes."}
+  ];
+  $scope.goToPerson = function(person, event) {
+    $mdDialog.show(
+      $mdDialog.alert()
+        .title('Navigating')
+        .content('Inspect ' + person)
+        .ariaLabel('Person inspect demo')
+        .ok('Neat!')
+        .targetEvent(event)
+    );
+  };
+
+	var last = {
+	  bottom: false,
+	  top: true,
+	  left: false,
+	  right: true
+	};
+
+	$scope.toastPosition = angular.extend({},last);
+
+	$scope.clickOpenButton = function() {
+		if ($rootScope.toastIsOpen!=true) {
+			$scope.showCustomToast();
+		} else {
+			$scope.closeToast();
+		}
+	}
+
+	$scope.showCustomToast = function() {
+		$rootScope.toastIsOpen=true;
+	    $mdToast.show({
+	    	  controller: 'warningCtrl',
+			  templateUrl: 'topRightToolsWarning.html',
+			  parent : $document[0].querySelector('#toastBounds'),
+			  hideDelay: 60000,
+			  position: $scope.getToastPosition()
+		});
+	};
+
+    $scope.closeToast = function() {
+	    $rootScope.toastIsOpen=false;
+	    $mdToast.hide();
+	};
+
+
+	function sanitizePosition() {
+		var current = $scope.toastPosition;
+
+		if ( current.bottom && last.top ) current.top = false;
+		if ( current.top && last.bottom ) current.bottom = false;
+		if ( current.right && last.left ) current.left = false;
+		if ( current.left && last.right ) current.right = false;
+
+		last = angular.extend({},current);
+	}
+
+	$scope.getToastPosition = function() {
+	    sanitizePosition();
+
+	    return Object.keys($scope.toastPosition)
+	      .filter(function(pos) { return $scope.toastPosition[pos]; })
+	      .join(' ');
+	};
+});
+
 app.controller('statisticsCtrl', function($mdToast,$document, solrService,rootCookie,$scope, $rootScope) {
 	 var last = {
 	  bottom: false,
@@ -928,20 +1004,29 @@ app.controller('statisticsCtrl', function($mdToast,$document, solrService,rootCo
 
 	$scope.toastPosition = angular.extend({},last);
 
+	$scope.clickOpenButton = function() {
+		if ($rootScope.toastIsOpen) {
+			$scope.closeToast();
+		} else {
+			$scope.showCustomToast();
+		}
+	}
+
 	$scope.showCustomToast = function() {
-    $mdToast.show({
-    	  controller: 'statisticsCtrl',
-		  templateUrl: 'topRightToolsStatistics.html',
-		  parent : $document[0].querySelector('#toastBounds'),
-		  hideDelay: 60000,
-		  position: $scope.getToastPosition()
+		$rootScope.toastIsOpen=true;
+	    $mdToast.show({
+	    	controller: 'statisticsCtrl',
+		 	templateUrl: 'topRightToolsStatistics.html',
+		 	parent : $document[0].querySelector('#toastBounds'),
+		  	hideDelay: 60000,
+		  	position: $scope.getToastPosition()
 		});
 	};
 
     $scope.closeToast = function() {
+	    $rootScope.toastIsOpen=false;
 	    $mdToast.hide();
 	};
-
 
 	function sanitizePosition() {
 		var current = $scope.toastPosition;
@@ -980,17 +1065,28 @@ app.controller('accountCtrl', function(UserService, $mdToast,$document, solrServ
             $scope.user = user;
         });
 
+
+	$scope.clickOpenButton = function() {
+		if ($rootScope.toastIsOpen) {
+			$scope.closeToast();
+		} else {
+			$scope.showCustomToast();
+		}
+	}
+
 	$scope.showCustomToast = function() {
-    $mdToast.show({
-    	  controller: 'accountCtrl',
-		  templateUrl: 'topRightToolsAccount.html',
-		  parent : $document[0].querySelector('#toastBounds'),
-		  hideDelay: 60000,
-		  position: $scope.getToastPosition()
+		$rootScope.toastIsOpen = true;
+	    $mdToast.show({
+	    	  controller: 'accountCtrl',
+			  templateUrl: 'topRightToolsAccount.html',
+			  parent : $document[0].querySelector('#toastBounds'),
+			  hideDelay: 60000,
+			  position: $scope.getToastPosition()
 		});
 	};
 
     $scope.closeToast = function() {
+    	$rootScope.toastIsOpen=false;
 	    $mdToast.hide();
 	};
 

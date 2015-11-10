@@ -3,7 +3,7 @@ module.exports = function(app, route) {
 
   // Setup the controller for REST.
   var rest = restful.model(
-    'appleEvent',
+    'crimeWarning',
     app.models.appleEvent
   ).methods(['get', 'put', 'post', 'delete']);
 
