@@ -50,7 +50,7 @@ for k,v in entities:
         break
     i = i+1
     #f.write(k.encode('utf-8') +' '+json.dumps(v)+'\n' )
-    data = {"title": "Crime Warning"}
+    data = {"title": "Crime Warning","docs":v}
 
     req = urllib2.Request('http://localhost:3000/crimeWarning')
     req.add_header('Content-Type', 'application/json')
