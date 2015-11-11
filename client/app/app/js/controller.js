@@ -116,7 +116,7 @@ app.controller('sphereClickedDropdownMenuCtrl', function($scope) {
 });
 
 
-app.controller('SearchResultDocListCtrl', function($http, googleTranslate, Restangular, solrService,$rootScope, $scope, $mdDialog) {
+app.controller('SearchResultDocListCtrl', function(googleTranslate, Restangular, solrService,$rootScope, $scope, $mdDialog) {
 
 	$rootScope.state="searchResult";
 	$rootScope.beginning = "true";
@@ -917,7 +917,7 @@ app.controller('userStateController', function(solrService,rootCookie,$scope, $r
 	}
 });
 
-app.controller('warningCtrl', function($mdToast,$document, solrService,rootCookie,$scope, $rootScope) {
+app.controller('warningCtrl', function(CrimeWarningService, $mdToast,$document, solrService,rootCookie,$scope, $rootScope) {
   $scope.warnings = [
   	{title:"Crime Warning", entity:"Part # HCPL-2631-300E", numberOfAppearance:3, duration:"32 minutes."},
   	{title:"Crime Warning", entity:"Part # HCPL-2631-300E", numberOfAppearance:3, duration:"32 minutes."},
@@ -929,6 +929,10 @@ app.controller('warningCtrl', function($mdToast,$document, solrService,rootCooki
   	{title:"Crime Warning", entity:"Part # HCPL-2631-300E", numberOfAppearance:3, duration:"32 minutes."},
   	{title:"Crime Warning", entity:"Part # HCPL-2631-300E", numberOfAppearance:3, duration:"32 minutes."}
   ];
+  CrimeWarningService.GetAll().then(function(list){
+	$scope.warnings = list;
+  });
+
   $scope.goToPerson = function(person, event) {
     $mdDialog.show(
       $mdDialog.alert()

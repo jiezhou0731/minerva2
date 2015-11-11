@@ -433,4 +433,17 @@ return {
     }
 }}])
 
+app.service('CrimeWarningService', function(Restangular,$http, $q){
 
+
+    this.GetAll = function GetAll() {
+        var deferred = $q.defer();
+        Restangular.all('CrimeWarning').getList({
+           	
+            }).then(function(list){ 
+                deferred.resolve(list);
+            });
+        return deferred.promise;
+    }
+
+});
