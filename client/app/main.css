@@ -93,22 +93,6 @@ body{
     right:10px;
 }
 
-.top-right-tools-table .btn-primary {
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.45);
-    border-color: rgba(0, 0, 0, 0.45);
-}
-
-.top-right-tools-table .btn-primary:hover {
-    color: #fff;
-    background-color: #6C7A89;
-    border-color: #6C7A89;
-    -webkit-transition: background-color 2500ms linear;
-    -moz-transition: background-color 200ms linear;
-    -o-transition: background-color 200ms linear;
-    -ms-transition: background-color 200ms linear;
-    transition: background-color 200ms linear;
-}
 
 .header .top-right-tools .open-button{
     color: #1D5577;
@@ -147,7 +131,7 @@ md-toast.md-top {
     padding-bottom: 5px;
 }
 
-.top-right-tools-toast .top-right-tools-close{
+.top-right-tools-toast-warning .top-right-tools-close{
     top:2px;
     right:2px;
 }
