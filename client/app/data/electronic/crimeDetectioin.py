@@ -18,7 +18,7 @@ doc_total_number = 0
 entities = {}
 
 f = open('analyse.txt','w')
-for fileNumber in range (0,5): #1727):
+for fileNumber in range (0,20): #1727):
     with open("dump/"+str(fileNumber)+".json") as json_file:
         json_data = json.load(json_file)
         docCount=0
@@ -33,11 +33,22 @@ for fileNumber in range (0,5): #1727):
             #    continue
 
             # d is what will be transfered to solr system
+            if (type(doc["_source"]["timestamp"]) is list):
+                doc["_source"]['timestamp'] = doc["_source"]["timestamp"][0]
+            else:
+                doc["_source"]['timestamp'] = doc["_source"]["timestamp"]
+
             if ( "crawl_data" in doc["_source"] and  bool(doc["_source"]["crawl_data"]) ):
             	for v in doc["_source"]["crawl_data"]:
                     if ("model" in v):
                     	if v["model"] in entities:
-                    		entities[v["model"]].append(doc)
+                            duplicate = False
+                            for i in entities[v["model"]]:
+                                if i["_id"]==doc["_id"]:
+                                    duplicate = True
+                                    break
+                            if duplicate == False:
+                    		    entities[v["model"]].append(doc)
                     	else:
                             entities[v["model"]] = []
                             entities[v["model"]].append(doc)
@@ -50,7 +61,17 @@ for k,v in entities:
         break
     i = i+1
     #f.write(k.encode('utf-8') +' '+json.dumps(v)+'\n' )
-    data = {"title": "Crime Warning","docs":v}
+    minTimestamp = 400000000000000
+    maxTimestamp = 0
+    for doc in v :
+        print doc["_id"]
+        if doc["_source"]["timestamp"] < minTimestamp :
+            minTimestamp = doc["_source"]["timestamp"]
+        if doc["_source"]["timestamp"] > maxTimestamp :
+            maxTimestamp = doc["_source"]["timestamp"]
+    
+    print maxTimestamp, ' - ', minTimestamp
+    data = {"title": "Crime Warning","docs":v,"entity":k, "duration":maxTimestamp-minTimestamp}
 
     req = urllib2.Request('http://localhost:3000/crimeWarning')
     req.add_header('Content-Type', 'application/json')
