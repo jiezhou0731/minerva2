@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 #!/usr/bin/python
 
+from bs4 import BeautifulSoup
 import re
 import json
 import requests
@@ -12,13 +13,14 @@ import os.path
 import socket
 import urllib2
 
+
 error_doc_number = 0
 doc_total_number = 0
 
 entities = {}
 
 f = open('analyse.txt','w')
-for fileNumber in range (0,20): #1727):
+for fileNumber in range (0,100):
     with open("dump/"+str(fileNumber)+".json") as json_file:
         json_data = json.load(json_file)
         docCount=0
@@ -59,7 +61,6 @@ for fileNumber in range (0,20): #1727):
                 soup = BeautifulSoup(''.join(html),"html.parser")
                 d['content'] = soup.getText()
                 d['title'] = str(soup.title.text)
-
                 cssLinks = soup.findAll('link')
                 # For each image in the document
                 for css in cssLinks:
@@ -104,6 +105,9 @@ for fileNumber in range (0,20): #1727):
             except Exception,e: 
                 d['html'] = html
                 error_doc_number = error_doc_number+1
+                print e
+                continue
+
             if ( "crawl_data" in doc["_source"] and  bool(doc["_source"]["crawl_data"]) ):
             	for v in doc["_source"]["crawl_data"]:
                     if ("model" in v):
@@ -126,6 +130,7 @@ for k,v in entities:
     if (i==10):
         break
     i = i+1
+
     #f.write(k.encode('utf-8') +' '+json.dumps(v)+'\n' )
     minTimestamp = 400000000000000
     maxTimestamp = 0
