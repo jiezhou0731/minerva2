@@ -917,7 +917,7 @@ app.controller('userStateController', function(solrService,rootCookie,$scope, $r
 	}
 });
 
-app.controller('warningCtrl', function(CrimeWarningService, $mdToast,$document, solrService,rootCookie,$scope, $rootScope) {
+app.controller('warningCtrl', function($sce, CrimeWarningService, $mdToast,$document, solrService,rootCookie,$scope, $rootScope) {
   $scope.warnings = [
   	{title:"Crime Warning", entity:"Part # HCPL-2631-300E", numberOfAppearance:3, duration:"32 minutes."},
   	{title:"Crime Warning", entity:"Part # HCPL-2631-300E", numberOfAppearance:3, duration:"32 minutes."},
@@ -933,16 +933,26 @@ app.controller('warningCtrl', function(CrimeWarningService, $mdToast,$document, 
 	$scope.warnings = list;
   });
 
-  $scope.goToPerson = function(person, event) {
-    $mdDialog.show(
-      $mdDialog.alert()
-        .title('Navigating')
-        .content('Inspect ' + person)
-        .ariaLabel('Person inspect demo')
-        .ok('Neat!')
-        .targetEvent(event)
-    );
-  };
+  function getSnippet(text,query) {
+  	var snippetLength=50;
+  	var pos = text.indexOf(query);
+  	if (pos<snippetLength/2) {
+  		return text;
+  	}
+  	return "..."+text.substring(pos-snippetLength/2);
+  }
+
+  $scope.clickWarning = function (warning){
+  	$rootScope.docs = warning.docs;
+  	for (var doc in $rootScope.docs) {
+  		$rootScope.docs[doc].highlighting=highlight(
+  			getSnippet(cleanText($rootScope.docs[doc].content),warning.entity),
+  			warning.entity);
+  		console.log($rootScope.docs[doc].highlighting);
+  		$rootScope.docs[doc].highlighting = $sce.trustAsHtml($rootScope.docs[doc].highlighting);
+  	}
+  	$rootScope.queryRegular = warning.entity;
+  }
 
 	var last = {
 	  bottom: false,

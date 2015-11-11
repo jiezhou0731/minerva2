@@ -37,13 +37,14 @@
   </span>
   <script type="text/ng-template" id="topRightToolsWarning.html">
   <md-toast class="top-right-tools-toast top-right-tools-toast-warning">
-      <md-list-item class="item" ng-repeat="warning in warnings" ng-click="goToPerson(person.title, $event)">
+      <md-list-item class="item" ng-repeat="warning in warnings" ng-click="clickWarning(warning)">
         <div class="content">
           <div class="title">{{ warning.title }}</div>
           <div class="detail">
               <span class="entity">{{ warning.entity }}</span>
-              appears in <span>{{ warning.numberOfAppearance }}</span>
-              during <span>{{ warning.duration }}</span>
+              appears in <span class="docs-length">{{ warning.docs.length }}</span> documents
+              <span ng-if="warning.duration==0">at the same time.</span>
+              <span ng-if="warning.duration!=0">during {{ warning.duration }} seconds.</span>
           </div>
         </div>
         <md-divider ng-if="!$last"></md-divider>

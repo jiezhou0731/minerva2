@@ -185,6 +185,13 @@ md-toast.md-top {
     border-radius: 3px;
 }
 
+.top-right-tools-toast .item .content .detail .docs-length{
+    background:#F2784B;
+    padding:0px 3px;
+    color:white;
+    border-radius: 3px;
+}
+
 .top-right-tools-toast .item button{
     clear:both;
     max-height:288px;
