@@ -288,7 +288,7 @@ md-toast.md-top {
 .search-result .doc-list .snippet{
 	line-height: 1.4;
     word-wrap: break-word;
-    font-size: small;
+    font-size: 10px;
     font-family: arial, sans-serif;
     max-height: 80px;
     height: 80px;
@@ -357,7 +357,7 @@ md-toast.md-top {
 	background-color: #DADFE1;
     float: left;
     padding: 5px 5px 5px 5px;
-    margin-top: 7px;
+    margin-top: 5px;
     font-size: 15px;
     line-height: 15px;
     margin-right: 5px;
