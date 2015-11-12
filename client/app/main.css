@@ -149,7 +149,14 @@ md-toast.md-top {
     display:block;
 }
 
-.top-right-tools-toast.item{
+.top-right-tools-toast .list{
+    clear:both;
+    width:288px;
+    max-height: 85vh;
+    overflow: scroll;
+}
+
+.top-right-tools-toast .item{
     clear:both;
     width:288px;
 }
@@ -160,12 +167,24 @@ md-toast.md-top {
     width:250px;
 }
 
-.top-right-tools-toast .item .content .title{
+.top-right-tools-toast .item .content .head{
     float:left;
     color:black;
     width:250px;
     line-height: 20px;
     margin-top: 7px;
+}
+
+.top-right-tools-toast .item .content .head .title{
+    float:left;
+    color:black;
+}
+
+.top-right-tools-toast .item .content .head .time{
+    color: #999;
+    display: block;
+    font-size: 9px;
+    float:right;
 }
 
 .top-right-tools-toast .item .content .detail{

@@ -931,6 +931,7 @@ app.controller('warningCtrl', function($sce, CrimeWarningService, $mdToast,$docu
   ];
   CrimeWarningService.GetAll().then(function(list){
 	$scope.warnings = list;
+	$rootScope.warningNumber = list.length;
   });
 
   function getSnippet(text,query) {

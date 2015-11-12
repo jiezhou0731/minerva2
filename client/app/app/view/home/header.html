@@ -33,23 +33,32 @@
 <div class="top-right-tools" >
   <i class="glyphicon glyphicon-exclamation-sign open-button"  ng-controller="warningCtrl" ng-click="clickOpenButton()"></i>
   <span class="number">
-    2
+    10
   </span>
   <script type="text/ng-template" id="topRightToolsWarning.html">
   <md-toast class="top-right-tools-toast top-right-tools-toast-warning">
-      <md-list-item class="item" ng-repeat="warning in warnings" ng-click="clickWarning(warning)">
-        <div class="content">
-          <div class="title">{{ warning.title }}</div>
-          <div class="detail">
-              <span class="entity">{{ warning.entity }}</span>
-              appears in <span class="docs-length">{{ warning.docs.length }}</span> documents
-              <span ng-if="warning.duration==0">at the same time.</span>
-              <span ng-if="warning.duration!=0">during {{ warning.duration }} seconds.</span>
-          </div>
-        </div>
-        <md-divider ng-if="!$last"></md-divider>
-      </md-list-item>
       <i class="glyphicon glyphicon-remove top-right-tools-close"  ng-click="closeToast()"></i>
+      <div class="list">
+        <md-list-item class="item" ng-repeat="warning in warnings" ng-click="clickWarning(warning)">
+          <div class="content">
+            <div class="head">
+                <div class="title">
+                  {{ warning.title }}
+                </div>
+                <div class="time">
+                  {{warning.time | date:'yyyy-MM-dd HH:mm:ss'}}
+                </div>
+            </div>
+            <div class="detail">
+                <span class="entity">{{ warning.entity }}</span>
+                appears in <span class="docs-length">{{ warning.docs.length }}</span> documents
+                <span ng-if="warning.duration==0">at the same time.</span>
+                <span ng-if="warning.duration!=0">during {{ (warning.duration/3600).toFixed(1) }} hours.</span>
+            </div>
+          </div>
+          <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+      </div>
   </md-toast>
   </script>
 
