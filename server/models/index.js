@@ -1,4 +1,4 @@
 module.exports = {
   user: require('./User'),
-  appleEvent: require('./CrimeWarning')
+  crimeWarning: require('./CrimeWarning')
 };
