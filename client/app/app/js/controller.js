@@ -955,6 +955,14 @@ app.controller('warningCtrl', function($sce, CrimeWarningService, $mdToast,$docu
   	$rootScope.queryRegular = warning.entity;
   }
 
+  $scope.clickSaveWarning = function(warning,event) {
+  	warning.status="read";
+  	warning.put();
+  	event.stopPropagation();
+  }
+
+
+
 	var last = {
 	  bottom: false,
 	  top: true,

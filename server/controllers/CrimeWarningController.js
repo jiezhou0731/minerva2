@@ -4,7 +4,7 @@ module.exports = function(app, route) {
   // Setup the controller for REST.
   var rest = restful.model(
     'crimeWarning',
-    app.models.appleEvent
+    app.models.crimeWarning
   ).methods(['get', 'put', 'post', 'delete']);
 
   // Register this endpoint with the application.

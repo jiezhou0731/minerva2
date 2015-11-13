@@ -436,10 +436,11 @@ return {
 app.service('CrimeWarningService', function(Restangular,$http, $q){
 
 
-    this.GetAll = function GetAll() {
+    this.GetAll = function() {
         var deferred = $q.defer();
+        Restangular.setDefaultRequestParams('get', {limit: 10});
         Restangular.all('CrimeWarning').getList({
-           	
+           	"status":"new"
             }).then(function(list){ 
                 deferred.resolve(list);
             });

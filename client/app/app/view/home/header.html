@@ -39,12 +39,19 @@
   <md-toast class="top-right-tools-toast top-right-tools-toast-warning">
       <i class="glyphicon glyphicon-remove top-right-tools-close"  ng-click="closeToast()"></i>
       <div class="list">
-        <md-list-item class="item" ng-repeat="warning in warnings" ng-click="clickWarning(warning)">
+        <md-list-item 
+          class="item animate-if"
+          ng-repeat="warning in warnings" 
+          ng-if="warning.status == 'new'"
+          ng-click="clickWarning(warning)">
           <div class="content">
             <div class="head">
                 <div class="title">
                   {{ warning.title }}
                 </div>
+                <i class="glyphicon glyphicon-saved save" ng-click="clickSaveWarning(warning,$event)">
+                  
+                </i>
                 <div class="time">
                   {{warning.time | date:'yyyy-MM-dd HH:mm:ss'}}
                 </div>
